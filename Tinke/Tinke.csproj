@@ -232,6 +232,8 @@
     <Compile Include="Nitro\FAT.cs" />
     <Compile Include="Nitro\FNT.cs" />
     <Compile Include="Nitro\NDS.cs" />
+    <Compile Include="Randomizer\GameRandomizer.cs" />
+    <Compile Include="Randomizer\CuriousVillagePALRandomizer.cs" />
     <Compile Include="Nitro\Overlay.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

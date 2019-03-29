@@ -1,0 +1,1573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{D085922C-2879-432C-BA33-439761C9C474}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>LaytonRando</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>LaytonRando</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".appveyor.yml" />
+    <None Include=".git\config" />
+    <None Include=".git\description" />
+    <None Include=".git\FETCH_HEAD" />
+    <None Include=".git\HEAD" />
+    <None Include=".git\hooks\applypatch-msg.sample" />
+    <None Include=".git\hooks\commit-msg.sample" />
+    <None Include=".git\hooks\fsmonitor-watchman.sample" />
+    <None Include=".git\hooks\post-update.sample" />
+    <None Include=".git\hooks\pre-applypatch.sample" />
+    <None Include=".git\hooks\pre-commit.sample" />
+    <None Include=".git\hooks\pre-push.sample" />
+    <None Include=".git\hooks\pre-rebase.sample" />
+    <None Include=".git\hooks\pre-receive.sample" />
+    <None Include=".git\hooks\prepare-commit-msg.sample" />
+    <None Include=".git\hooks\update.sample" />
+    <None Include=".git\index" />
+    <None Include=".git\info\exclude" />
+    <None Include=".git\logs\HEAD" />
+    <None Include=".git\logs\refs\heads\master" />
+    <None Include=".git\logs\refs\remotes\origin\master" />
+    <None Include=".git\logs\refs\remotes\origin\models3D" />
+    <None Include=".git\objects\pack\pack-fb3fb6b7b0eceabfdb5be3f6add655ef9867a0ad.idx" />
+    <None Include=".git\objects\pack\pack-fb3fb6b7b0eceabfdb5be3f6add655ef9867a0ad.pack" />
+    <None Include=".git\packed-refs" />
+    <None Include=".git\refs\heads\master" />
+    <None Include=".git\refs\remotes\origin\master" />
+    <None Include=".git\refs\remotes\origin\models3D" />
+    <None Include=".travis.yml" />
+    <None Include="Be.Windows.Forms.HexBox\HexBox.snk" />
+    <None Include="compile.bat" />
+    <None Include="compile.sh" />
+    <None Include="Plugins\TC UTK\TC UTK\TC UTK.tbl" />
+    <None Include="README.md" />
+    <None Include="Tinke.mdw" />
+    <None Include="Tinke\app.config" />
+    <None Include="Tinke\Properties\Settings.settings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.csproj" />
+    <Content Include="Be.Windows.Forms.HexBox\HexBox.bmp" />
+    <Content Include="changelog.txt" />
+    <Content Include="Ekona\Ekona.csproj" />
+    <Content Include="Ekona\Licence.txt" />
+    <Content Include="Licence.txt" />
+    <Content Include="Plugins\1stPlayable\1stPlayable.sln" />
+    <Content Include="Plugins\1stPlayable\1stPlayable\1stPlayable.csproj" />
+    <Content Include="Plugins\1stPlayable\1stPlayable\Licence.txt" />
+    <Content Include="Plugins\3DModels\3DModels.sln" />
+    <Content Include="Plugins\3DModels\3DModels\3DModels.csproj" />
+    <Content Include="Plugins\3DModels\3DModels\3DModelsLang.xml" />
+    <Content Include="Plugins\3DModels\3DModels\Licence.txt" />
+    <Content Include="Plugins\3DModels\3DModels\Resources\disk.png" />
+    <Content Include="Plugins\3DModels\3DModels\Resources\nintendo-ds.ico" />
+    <Content Include="Plugins\3DModels\OpenTK.dll" />
+    <Content Include="Plugins\3DModels\OpenTK.GLControl.dll" />
+    <Content Include="Plugins\999HRPERDOOR\999HRPERDOOR.sln" />
+    <Content Include="Plugins\999HRPERDOOR\999HRPERDOOR\999HRPERDOOR.csproj" />
+    <Content Include="Plugins\999HRPERDOOR\999HRPERDOOR\Licence.txt" />
+    <Content Include="Plugins\AI IGO DS\AI IGO DS.sln" />
+    <Content Include="Plugins\AI IGO DS\AI IGO DS\AI IGO DS.csproj" />
+    <Content Include="Plugins\AI IGO DS\AI IGO DS\AI IGO DSLang.xml" />
+    <Content Include="Plugins\AI IGO DS\AI IGO DS\Licence.txt" />
+    <Content Include="Plugins\AI IGO DS\AI IGO DS\Resources\picture_save.png" />
+    <Content Include="Plugins\BLOODBAHAMUT\BLOODBAHAMUT.sln" />
+    <Content Include="Plugins\BLOODBAHAMUT\BLOODBAHAMUT\BLOODBAHAMUT.csproj" />
+    <Content Include="Plugins\BLOODBAHAMUT\BLOODBAHAMUT\Licence.txt" />
+    <Content Include="Plugins\Common\Common.sln" />
+    <Content Include="Plugins\Common\Common\Common.csproj" />
+    <Content Include="Plugins\Common\Common\CommonLang.xml" />
+    <Content Include="Plugins\Common\Common\Licence.txt" />
+    <Content Include="Plugins\Common\Common\Resources\control_play_blue.png" />
+    <Content Include="Plugins\Common\Common\Resources\control_stop_blue.png" />
+    <Content Include="Plugins\Common\Common\Resources\picture_save.png" />
+    <Content Include="Plugins\DBK ULTIMATE\DBK ULTIMATE.sln" />
+    <Content Include="Plugins\DBK ULTIMATE\DBK ULTIMATE\DBK ULTIMATE.csproj" />
+    <Content Include="Plugins\DBK ULTIMATE\DBK ULTIMATE\Licence.txt" />
+    <Content Include="Plugins\DEATHNOTEDS\DEATHNOTEDS.sln" />
+    <Content Include="Plugins\DEATHNOTEDS\DEATHNOTEDS\DEATHNOTEDS.csproj" />
+    <Content Include="Plugins\DEATHNOTEDS\DEATHNOTEDS\Licence.txt" />
+    <Content Include="Plugins\DSDecmp\DSDecmp\DSDecmp.csproj" />
+    <Content Include="Plugins\EDGEWORTH\EDGEWORTH.sln" />
+    <Content Include="Plugins\EDGEWORTH\EDGEWORTH\EDGEWORTH.csproj" />
+    <Content Include="Plugins\EDGEWORTH\EDGEWORTH\EDGEWORTHLang.xml" />
+    <Content Include="Plugins\EDGEWORTH\EDGEWORTH\Licence.txt" />
+    <Content Include="Plugins\EDGEWORTH\EDGEWORTH\Resources\package_go.png" />
+    <Content Include="Plugins\Fonts\Fonts.sln" />
+    <Content Include="Plugins\Fonts\Fonts\FontLang.xml" />
+    <Content Include="Plugins\Fonts\Fonts\Fonts.csproj" />
+    <Content Include="Plugins\Fonts\Fonts\Licence.txt" />
+    <Content Include="Plugins\Fonts\Fonts\Resources\disk.png" />
+    <Content Include="Plugins\Fonts\Fonts\Resources\font_add.png" />
+    <Content Include="Plugins\Fonts\Fonts\Resources\font_delete.png" />
+    <Content Include="Plugins\Fonts\Fonts\Resources\font_go.png" />
+    <Content Include="Plugins\Fonts\Fonts\Resources\palette.png" />
+    <Content Include="Plugins\GYAKUKEN\GYAKUKEN.sln" />
+    <Content Include="Plugins\GYAKUKEN\GYAKUKEN\GYAKUKEN.csproj" />
+    <Content Include="Plugins\GYAKUKEN\GYAKUKEN\Licence.txt" />
+    <Content Include="Plugins\HETALIA\HETALIA.sln" />
+    <Content Include="Plugins\HETALIA\HETALIA\HETALIA.csproj" />
+    <Content Include="Plugins\HETALIA\HETALIA\Licence.txt" />
+    <Content Include="Plugins\Images\Images.sln" />
+    <Content Include="Plugins\Images\Images\Images.csproj" />
+    <Content Include="Plugins\Images\Images\Images.xml" />
+    <Content Include="Plugins\Images\Images\ImagesLang.xml" />
+    <Content Include="Plugins\Images\Images\Licence.txt" />
+    <Content Include="Plugins\Images\Images\Resources\picture_save.png" />
+    <Content Include="Plugins\INAZUMA11\INAZUMA11.sln" />
+    <Content Include="Plugins\INAZUMA11\INAZUMA11\INAZUMA11.csproj" />
+    <Content Include="Plugins\INAZUMA11\INAZUMA11\Licence.txt" />
+    <Content Include="Plugins\INAZUMA11\INAZUMA11\Resources\page_white_edit.png" />
+    <Content Include="Plugins\JUS\JUS.sln" />
+    <Content Include="Plugins\JUS\JUS\JUS.csproj" />
+    <Content Include="Plugins\KIRBY DRO\KIRBY DRO.sln" />
+    <Content Include="Plugins\KIRBY DRO\KIRBY DRO\KIRBY DRO.csproj" />
+    <Content Include="Plugins\KIRBY DRO\KIRBY DRO\KIRBY DROLang.xml" />
+    <Content Include="Plugins\KIRBY DRO\KIRBY DRO\Licence.txt" />
+    <Content Include="Plugins\KIRBY DRO\KIRBY DRO\Resources\picture_save.png" />
+    <Content Include="Plugins\LASTWINDOW\LASTWINDOW.sln" />
+    <Content Include="Plugins\LASTWINDOW\LASTWINDOW\LASTWINDOW.csproj" />
+    <Content Include="Plugins\LASTWINDOW\LASTWINDOW\Licence.txt" />
+    <Content Include="Plugins\LAYTON\LAYTON.sln" />
+    <Content Include="Plugins\LAYTON\LAYTON\LAYTON.csproj" />
+    <Content Include="Plugins\LAYTON\LAYTON\LaytonLang.xml" />
+    <Content Include="Plugins\LAYTON\LAYTON\Licence.txt" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\disk.png" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\picture_edit.png" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\picture_go.png" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\picture_save.png" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\resultset_first.png" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\resultset_last.png" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\resultset_next.png" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\stop.png" />
+    <Content Include="Plugins\LAYTON\LAYTON\Resources\stop1.png" />
+    <Content Include="Plugins\MAPLESTORYDS\MAPLESTORYDS.sln" />
+    <Content Include="Plugins\MAPLESTORYDS\MAPLESTORYDS\Licence.txt" />
+    <Content Include="Plugins\MAPLESTORYDS\MAPLESTORYDS\MAPLESTORYDS.csproj" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI.sln" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\Licence.txt" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\NINOKUNI.csproj" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\Ninokuni.xml" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\Ninokuni\font10.xml" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\Ninokuni\font12.xml" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\Ninokuni\ImportFiles.xml" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\Resources\page_white_edit.png" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\Resources\picture_edit.png" />
+    <Content Include="Plugins\NINOKUNI\NINOKUNI\Resources\picture_save.png" />
+    <Content Include="Plugins\NotManagedNetPlugins\NotManagedNetPlugins.sln" />
+    <Content Include="Plugins\NotManagedNetPlugins\NotManagedNetPlugins\Licence.txt" />
+    <Content Include="Plugins\NotManagedNetPlugins\NotManagedNetPlugins\NotManagedNetPlugins.csproj" />
+    <Content Include="Plugins\Pack\Pack.sln" />
+    <Content Include="Plugins\Pack\Pack\Licence.txt" />
+    <Content Include="Plugins\Pack\Pack\Pack.csproj" />
+    <Content Include="Plugins\PSL\PSL.sln" />
+    <Content Include="Plugins\PSL\PSL\Licence.txt" />
+    <Content Include="Plugins\PSL\PSL\PSL.csproj" />
+    <Content Include="Plugins\SDAT\SDAT.sln" />
+    <Content Include="Plugins\SDAT\SDAT\Licence.txt" />
+    <Content Include="Plugins\SDAT\SDAT\Resources\accept.png" />
+    <Content Include="Plugins\SDAT\SDAT\Resources\information.png" />
+    <Content Include="Plugins\SDAT\SDAT\Resources\package_add.png" />
+    <Content Include="Plugins\SDAT\SDAT\Resources\sound_add.png" />
+    <Content Include="Plugins\SDAT\SDAT\Resources\tag_blue_edit.png" />
+    <Content Include="Plugins\SDAT\SDAT\SDAT.csproj" />
+    <Content Include="Plugins\SDAT\SDAT\SDATLang.xml" />
+    <Content Include="Plugins\SF FEATHER\SF FEATHER.sln" />
+    <Content Include="Plugins\SF FEATHER\SF FEATHER\Licence.txt" />
+    <Content Include="Plugins\SF FEATHER\SF FEATHER\Resources\picture_save.png" />
+    <Content Include="Plugins\SF FEATHER\SF FEATHER\SF FEATHER.csproj" />
+    <Content Include="Plugins\SONICRUSHADV\SONICRUSHADV.sln" />
+    <Content Include="Plugins\SONICRUSHADV\SONICRUSHADV\Licence.txt" />
+    <Content Include="Plugins\SONICRUSHADV\SONICRUSHADV\SONICRUSHADV.csproj" />
+    <Content Include="Plugins\Sounds\Sounds.sln" />
+    <Content Include="Plugins\Sounds\Sounds\Licence.txt" />
+    <Content Include="Plugins\Sounds\Sounds\Resources\resultset_next.png" />
+    <Content Include="Plugins\Sounds\Sounds\Resources\stop.png" />
+    <Content Include="Plugins\Sounds\Sounds\SoundLang.xml" />
+    <Content Include="Plugins\Sounds\Sounds\Sounds.csproj" />
+    <Content Include="Plugins\TC UTK\TC UTK.sln" />
+    <Content Include="Plugins\TC UTK\TC UTK\Licence.txt" />
+    <Content Include="Plugins\TC UTK\TC UTK\TC UTK.csproj" />
+    <Content Include="Plugins\Teniprimgaku\Teniprimgaku.sln" />
+    <Content Include="Plugins\Teniprimgaku\Teniprimgaku\Licence.txt" />
+    <Content Include="Plugins\Teniprimgaku\Teniprimgaku\Teniprimgaku.csproj" />
+    <Content Include="Plugins\TETRIS DS\TETRIS DS.sln" />
+    <Content Include="Plugins\TETRIS DS\TETRIS DS\Licence.txt" />
+    <Content Include="Plugins\TETRIS DS\TETRIS DS\TETRIS DS.csproj" />
+    <Content Include="Plugins\TETRIS DS\TETRIS DS\TETRISDSLang.xml" />
+    <Content Include="Plugins\TIMEACE\TIMEACE.sln" />
+    <Content Include="Plugins\TIMEACE\TIMEACE\TIMEACE.csproj" />
+    <Content Include="Plugins\TOKIMEKIGS3S\TOKIMEKIGS3S.sln" />
+    <Content Include="Plugins\TOKIMEKIGS3S\TOKIMEKIGS3S\Licence.txt" />
+    <Content Include="Plugins\TOKIMEKIGS3S\TOKIMEKIGS3S\TOKIMEKIGS3S.csproj" />
+    <Content Include="Plugins\Tokimemo1\Tokimemo1.sln" />
+    <Content Include="Plugins\Tokimemo1\Tokimemo1\Tokimemo1.csproj" />
+    <Content Include="Plugins\TOTTEMPEST\TOTTEMPEST.sln" />
+    <Content Include="Plugins\TOTTEMPEST\TOTTEMPEST\Licence.txt" />
+    <Content Include="Plugins\TOTTEMPEST\TOTTEMPEST\TOTTEMPEST.csproj" />
+    <Content Include="Plugins\TOTTEMPEST\TOTTEMPEST\TottempestLang.xml" />
+    <Content Include="Plugins\TXT\TXT.sln" />
+    <Content Include="Plugins\TXT\TXT\Licence.txt" />
+    <Content Include="Plugins\TXT\TXT\TXT.csproj" />
+    <Content Include="Plugins\TXT\TXT\TXTLang.xml" />
+    <Content Include="Plugins\WITCHTALE\WITCHTALE.sln" />
+    <Content Include="Plugins\WITCHTALE\WITCHTALE\WITCHTALE.csproj" />
+    <Content Include="Tinke\langs\en-us.png" />
+    <Content Include="Tinke\langs\en-us.xml" />
+    <Content Include="Tinke\langs\es-es.png" />
+    <Content Include="Tinke\langs\es-es.xml" />
+    <Content Include="Tinke\langs\fr-fr.png" />
+    <Content Include="Tinke\langs\fr-fr.xml" />
+    <Content Include="Tinke\langs\it-it.png" />
+    <Content Include="Tinke\langs\it-it.xml" />
+    <Content Include="Tinke\Licence.txt" />
+    <Content Include="Tinke\nintendo-ds.ico" />
+    <Content Include="Tinke\Nitro\MakerCodes.txt" />
+    <Content Include="Tinke\Resources\accept.png" />
+    <Content Include="Tinke\Resources\calculator.png" />
+    <Content Include="Tinke\Resources\cancel.png" />
+    <Content Include="Tinke\Resources\compress.png" />
+    <Content Include="Tinke\Resources\disk.png" />
+    <Content Include="Tinke\Resources\image_edit.png" />
+    <Content Include="Tinke\Resources\package.png" />
+    <Content Include="Tinke\Resources\page_white_text.png" />
+    <Content Include="Tinke\Resources\pencil.png" />
+    <Content Include="Tinke\Resources\picture_edit.png" />
+    <Content Include="Tinke\Resources\picture_go.png" />
+    <Content Include="Tinke\Resources\picture_save.png" />
+    <Content Include="Tinke\Resources\plugin_go.png" />
+    <Content Include="Tinke\Resources\zoom.png" />
+    <Content Include="Tinke\Tinke.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Be.Windows.Forms.HexBox\AssemblyInfo.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\BuiltInContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Be.Windows.Forms.HexBox\ByteCharConverters.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\ByteCollection.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\BytePositionInfo.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\DataBlock.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\DataMap.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\DynamicByteProvider.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\DynamicFileByteProvider.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\FileByteProvider.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\FileDataBlock.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\HexBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Be.Windows.Forms.HexBox\HexCasing.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\IByteProvider.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\MemoryDataBlock.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\NativeMethods.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\Properties\Resources.Designer.cs" />
+    <Compile Include="Be.Windows.Forms.HexBox\Util.cs" />
+    <Compile Include="Ekona\Helper\BinaryReaderBE.cs" />
+    <Compile Include="Ekona\Helper\BinaryWriterBE.cs" />
+    <Compile Include="Ekona\Helper\BitsConverter.cs" />
+    <Compile Include="Ekona\Helper\CRC.cs" />
+    <Compile Include="Ekona\Helper\IOutil.cs" />
+    <Compile Include="Ekona\Helper\LNK.cs" />
+    <Compile Include="Ekona\Helper\Translation.cs" />
+    <Compile Include="Ekona\IGamePlugin.cs" />
+    <Compile Include="Ekona\Images\Actions.cs" />
+    <Compile Include="Ekona\Images\Dialogs\OAMEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ekona\Images\Dialogs\OAMEditor.Designer.cs">
+      <DependentUpon>OAMEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ekona\Images\Formats\ACO.cs" />
+    <Compile Include="Ekona\Images\Formats\APNG.cs" />
+    <Compile Include="Ekona\Images\Formats\Bitmap.cs" />
+    <Compile Include="Ekona\Images\Formats\PaletteWin.cs" />
+    <Compile Include="Ekona\Images\ImageBase.cs" />
+    <Compile Include="Ekona\Images\ImageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ekona\Images\ImageControl.designer.cs">
+      <DependentUpon>ImageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ekona\Images\MapBase.cs" />
+    <Compile Include="Ekona\Images\NitroTextureCompressor.cs" />
+    <Compile Include="Ekona\Images\PaletteBase.cs" />
+    <Compile Include="Ekona\Images\PaletteControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ekona\Images\PaletteControl.designer.cs">
+      <DependentUpon>PaletteControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ekona\Images\RawData.cs" />
+    <Compile Include="Ekona\Images\SpriteBase.cs" />
+    <Compile Include="Ekona\Images\SpriteControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ekona\Images\SpriteControl.designer.cs">
+      <DependentUpon>SpriteControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ekona\IPlugin.cs" />
+    <Compile Include="Ekona\IPluginHost.cs" />
+    <Compile Include="Ekona\Mathematics\NvMath.cs" />
+    <Compile Include="Ekona\Mathematics\Vector3.cs" />
+    <Compile Include="Ekona\Properties\AssemblyInfo.cs" />
+    <Compile Include="Ekona\Properties\Resources.Designer.cs" />
+    <Compile Include="Ekona\Structures.cs" />
+    <Compile Include="Plugins\1stPlayable\1stPlayable\ARC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\1stPlayable\1stPlayable\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\1stPlayable\1stPlayable\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\3DModels\3DModels\BMD0.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\3DModels\3DModels\BTX0.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\3DModels\3DModels\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\3DModels\3DModels\ModelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\3DModels\3DModels\ModelControl.Designer.cs">
+      <DependentUpon>ModelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\3DModels\3DModels\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\3DModels\3DModels\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\3DModels\3DModels\TextureControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\3DModels\3DModels\TextureControl.Designer.cs">
+      <DependentUpon>TextureControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\999HRPERDOOR\999HRPERDOOR\AT6P.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\999HRPERDOOR\999HRPERDOOR\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\999HRPERDOOR\999HRPERDOOR\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\999HRPERDOOR\999HRPERDOOR\SIR0.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\ANCG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\ANCL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\ANSC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\ATEX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\BIN.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\BinControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\BinControl.Designer.cs">
+      <DependentUpon>BinControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\AI IGO DS\AI IGO DS\R00.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\BLOODBAHAMUT\BLOODBAHAMUT\DPK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\BLOODBAHAMUT\BLOODBAHAMUT\Helper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\BLOODBAHAMUT\BLOODBAHAMUT\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\BLOODBAHAMUT\BLOODBAHAMUT\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Common\Common\Imagen\BasicControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Imagen\BasicControl.Designer.cs">
+      <DependentUpon>BasicControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Imagen\BMP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Imagen\GIF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Imagen\JPG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Imagen\PNG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Imagen\TGA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Common\Common\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\Common\Common\RLE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Sonido\iWav.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Sonido\iWav.Designer.cs">
+      <DependentUpon>iWav.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Common\Common\Sonido\WAV.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DBK ULTIMATE\DBK ULTIMATE\Archive.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DBK ULTIMATE\DBK ULTIMATE\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DBK ULTIMATE\DBK ULTIMATE\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\DEATHNOTEDS\DEATHNOTEDS\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DEATHNOTEDS\DEATHNOTEDS\Pack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DEATHNOTEDS\DEATHNOTEDS\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\DSDecmp\DSDecmp\CompressionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\CompressionControl.Designer.cs">
+      <DependentUpon>CompressionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Exceptions\InputTooLargeException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Exceptions\NotEnoughDataException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Exceptions\StreamTooShortException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Exceptions\TooMuchInputException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Formats\CompressionFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Formats\LZOvl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Formats\Nitro\Huffman.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Formats\Nitro\LZ10.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Formats\Nitro\LZ11.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Formats\Nitro\NitroCFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Formats\Nitro\RLE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Program.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Utils\IOUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Utils\LZUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\DSDecmp\DSDecmp\Utils\SimpleReversePrioQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\EDGEWORTH\EDGEWORTH\Espera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\EDGEWORTH\EDGEWORTH\Espera.designer.cs">
+      <DependentUpon>Espera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\EDGEWORTH\EDGEWORTH\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\EDGEWORTH\EDGEWORTH\PACK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\EDGEWORTH\EDGEWORTH\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\EDGEWORTH\EDGEWORTH\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\Fonts\Fonts\CharControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Fonts\Fonts\CharControl.Designer.cs">
+      <DependentUpon>CharControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Fonts\Fonts\FontControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Fonts\Fonts\FontControl.Designer.cs">
+      <DependentUpon>FontControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Fonts\Fonts\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Fonts\Fonts\MapChar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\Fonts\Fonts\MapChar.Designer.cs">
+      <DependentUpon>MapChar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Fonts\Fonts\NFTR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Fonts\Fonts\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Fonts\Fonts\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\GYAKUKEN\GYAKUKEN\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\GYAKUKEN\GYAKUKEN\Pack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\GYAKUKEN\GYAKUKEN\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\HETALIA\HETALIA\Encryption\Image.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\HETALIA\HETALIA\Encryption\Text.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\HETALIA\HETALIA\IMY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\HETALIA\HETALIA\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\HETALIA\HETALIA\MAP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\HETALIA\HETALIA\Pack\DATA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\HETALIA\HETALIA\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Images\Images\AnimationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\AnimationControl.designer.cs">
+      <DependentUpon>AnimationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\DSIG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\Games\NARUTO_POTN.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\Games\PCT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NANR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NCCG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NCCL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NCE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NCER.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NCGR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NCLR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NCOB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NCSC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\NSCR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Images\Images\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Images\Images\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\BlogpostControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\BlogpostControl.Designer.cs">
+      <DependentUpon>BlogpostControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\BlogresControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\BlogresControl.Designer.cs">
+      <DependentUpon>BlogresControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\Encryption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\Packs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\SubtitlesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\SubtitlesControl.Designer.cs">
+      <DependentUpon>SubtitlesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\USearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\INAZUMA11\INAZUMA11\USearchControl.Designer.cs">
+      <DependentUpon>USearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\JUS\JUS\ALAR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\JUS\JUS\DIG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\JUS\JUS\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\JUS\JUS\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\KIRBY DRO\KIRBY DRO\Bin.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\KIRBY DRO\KIRBY DRO\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\KIRBY DRO\KIRBY DRO\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\KIRBY DRO\KIRBY DRO\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\LASTWINDOW\LASTWINDOW\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LASTWINDOW\LASTWINDOW\PACK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LASTWINDOW\LASTWINDOW\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\LAYTON\LAYTON\Ani.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\Bg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\DARC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\GDS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoAni.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoAni.Designer.cs">
+      <DependentUpon>InfoAni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoBG.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoBG.Designer.cs">
+      <DependentUpon>InfoBG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoImage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoImage.designer.cs">
+      <DependentUpon>InfoImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoParte.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoParte.designer.cs">
+      <DependentUpon>InfoParte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoPicture.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\InfoPicture.designer.cs">
+      <DependentUpon>InfoPicture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\iText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\iText.Designer.cs">
+      <DependentUpon>iText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\LAYTON4.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\NazoTextControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\NazoTextControl.Designer.cs">
+      <DependentUpon>NazoTextControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\PCK2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\PCM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\LAYTON\LAYTON\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\LAYTON\LAYTON\ScriptControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\ScriptControl.Designer.cs">
+      <DependentUpon>ScriptControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\LAYTON\LAYTON\Text.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\MAPLESTORYDS\MAPLESTORYDS\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\MAPLESTORYDS\MAPLESTORYDS\Pack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\MAPLESTORYDS\MAPLESTORYDS\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\BMPControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\BMPControl.Designer.cs">
+      <DependentUpon>BMPControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Helper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\MainWin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\MainWin.Designer.cs">
+      <DependentUpon>MainWin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Pack\KPCN.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Pack\NPCK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Pack\SPDL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Pack\WMAP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\BattleHelp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\BlockText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\DownloadParam.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\DungeonList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\IText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\MQuestText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\MQuestText.Designer.cs">
+      <DependentUpon>MQuestText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\ScenarioText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\ScenarioText.Designer.cs">
+      <DependentUpon>ScenarioText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\SQcontrol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\SQcontrol.Designer.cs">
+      <DependentUpon>SQcontrol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\StageInfoData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\SubtitleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\SubtitleControl.Designer.cs">
+      <DependentUpon>SubtitleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\SystemText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\SystemText.Designer.cs">
+      <DependentUpon>SystemText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\TextControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\Text\TextControl.Designer.cs">
+      <DependentUpon>TextControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\TMAP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\TMAPcontrol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\NINOKUNI\NINOKUNI\TMAPcontrol.Designer.cs">
+      <DependentUpon>TMAPcontrol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\NotManagedNetPlugins\NotManagedNetPlugins\GamePlugins.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NotManagedNetPlugins\NotManagedNetPlugins\Helper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\NotManagedNetPlugins\NotManagedNetPlugins\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Pack\Pack\Arch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\4HEROSLIGHT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\AWITCHSTALE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\BSIGILBE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\DGAMERARCHIVE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\ENDLESS_F.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\GENSUIKODS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\GTACTW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\HONZ_Books.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\ROCKMAN_EXE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\RR3BACE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\RUNEFACTORY3.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\SUBARASHIKI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Games\WARIO7.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\NARC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Pack\Pack\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Pack\Pack\Utility.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\ATDTX.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\ATDTX.Designer.cs">
+      <DependentUpon>ATDTX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\GBCS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\GBCS.Designer.cs">
+      <DependentUpon>GBCS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\LINK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\PAC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\PSL\PSL\TexSprites.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\PSL\PSL\TexSprites.Designer.cs">
+      <DependentUpon>TexSprites.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\IMA-ADPCM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\InfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\iSDAT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\iSDAT.Designer.cs">
+      <DependentUpon>iSDAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\NewAudioOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\NewAudioOptions.Designer.cs">
+      <DependentUpon>NewAudioOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\PCM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\SDAT\SDAT\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\SDAT\SDAT\SDAT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\SSEQ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\STRM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\SWAR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\SWAV.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SDAT\SDAT\WAV.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SF FEATHER\SF FEATHER\CGx.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SF FEATHER\SF FEATHER\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SF FEATHER\SF FEATHER\PAC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SF FEATHER\SF FEATHER\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\SF FEATHER\SF FEATHER\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\SF FEATHER\SF FEATHER\SCx.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SONICRUSHADV\SONICRUSHADV\BAC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SONICRUSHADV\SONICRUSHADV\BB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SONICRUSHADV\SONICRUSHADV\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\SONICRUSHADV\SONICRUSHADV\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Sounds\Sounds\ADX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\Compression\IMA-ADPCM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\Compression\PCM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\Compression\Procyon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\Helper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Sounds\Sounds\Properties\Resources.Designer.cs" />
+    <Compile Include="Plugins\Sounds\Sounds\SADL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\SoundBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\SoundControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\SoundControl.Designer.cs">
+      <DependentUpon>SoundControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\Waiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\Waiting.Designer.cs">
+      <DependentUpon>Waiting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Sounds\Sounds\WAV.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TC UTK\TC UTK\Encryption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TC UTK\TC UTK\Images.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TC UTK\TC UTK\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TC UTK\TC UTK\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\TC UTK\TC UTK\TextControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\TC UTK\TC UTK\TextControl.Designer.cs">
+      <DependentUpon>TextControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\Cell.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\Filedata.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\GameImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\GameSprite.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\Project.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\Scrn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\ScrnControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\ScrnControl.Designer.cs">
+      <DependentUpon>ScrnControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\TextViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Teniprimgaku\Teniprimgaku\TextViewer.Designer.cs">
+      <DependentUpon>TextViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\TETRIS DS\TETRIS DS\BDZ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TETRIS DS\TETRIS DS\CLZ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TETRIS DS\TETRIS DS\CZ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TETRIS DS\TETRIS DS\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TETRIS DS\TETRIS DS\OBJS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TETRIS DS\TETRIS DS\PLZ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TETRIS DS\TETRIS DS\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\TETRIS DS\TETRIS DS\SLZ.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TIMEACE\TIMEACE\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TIMEACE\TIMEACE\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\TIMEACE\TIMEACE\TextEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\TIMEACE\TIMEACE\TextEditor.Designer.cs">
+      <DependentUpon>TextEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\TOKIMEKIGS3S\TOKIMEKIGS3S\LZS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TOKIMEKIGS3S\TOKIMEKIGS3S\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TOKIMEKIGS3S\TOKIMEKIGS3S\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\TOKIMEKIGS3S\TOKIMEKIGS3S\RESC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tokimemo1\Tokimemo1\Packer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tokimemo1\Tokimemo1\Program.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tokimemo1\Tokimemo1\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\TOTTEMPEST\TOTTEMPEST\ANA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TOTTEMPEST\TOTTEMPEST\APA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TOTTEMPEST\TOTTEMPEST\ASC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TOTTEMPEST\TOTTEMPEST\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TOTTEMPEST\TOTTEMPEST\NBM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TOTTEMPEST\TOTTEMPEST\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\TXT\TXT\bmg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\TXT\TXT\iBMG.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\TXT\TXT\iBMG.Designer.cs">
+      <DependentUpon>iBMG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\TXT\TXT\iTXT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\TXT\TXT\iTXT.Designer.cs">
+      <DependentUpon>iTXT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\TXT\TXT\Properties\AssemblyInfo.cs" />
+    <Compile Include="Plugins\TXT\TXT\TXT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\WITCHTALE\WITCHTALE\Main.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\WITCHTALE\WITCHTALE\Packs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Plugins\WITCHTALE\WITCHTALE\Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Acciones.cs" />
+    <Compile Include="Tinke\Autores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Autores.Designer.cs">
+      <DependentUpon>Autores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Debug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Debug.Designer.cs">
+      <DependentUpon>Debug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Dialog\CallPlugin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Dialog\CallPlugin.Designer.cs">
+      <DependentUpon>CallPlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Dialog\FATExtract.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Dialog\FATExtract.Designer.cs">
+      <DependentUpon>FATExtract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Dialog\MapOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Dialog\MapOptions.Designer.cs">
+      <DependentUpon>MapOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Dialog\SelectFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Dialog\SelectFile.Designer.cs">
+      <DependentUpon>SelectFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Dialog\SelectModeColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Dialog\SelectModeColor.Designer.cs">
+      <DependentUpon>SelectModeColor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Dialog\SelectOffset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Dialog\SelectOffset.Designer.cs">
+      <DependentUpon>SelectOffset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\EditRomInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\EditRomInfo.Designer.cs">
+      <DependentUpon>EditRomInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Espera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Espera.Designer.cs">
+      <DependentUpon>Espera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Nitro\Estructuras.cs" />
+    <Compile Include="Tinke\Nitro\FAT.cs" />
+    <Compile Include="Tinke\Nitro\FNT.cs" />
+    <Compile Include="Tinke\Nitro\NDS.cs" />
+    <Compile Include="Tinke\Nitro\Overlay.cs" />
+    <Compile Include="Tinke\PluginHost.cs" />
+    <Compile Include="Tinke\Program.cs" />
+    <Compile Include="Tinke\Properties\AssemblyInfo.cs" />
+    <Compile Include="Tinke\Properties\Resources.Designer.cs" />
+    <Compile Include="Tinke\Properties\Settings.Designer.cs" />
+    <Compile Include="Tinke\Randomizer\CuriousVillagePALRandomizer.cs" />
+    <Compile Include="Tinke\Randomizer\GameRandomizer.cs" />
+    <Compile Include="Tinke\RomInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\RomInfo.Designer.cs">
+      <DependentUpon>RomInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Sistema.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Sistema.Designer.cs">
+      <DependentUpon>Sistema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\Tools\Helper.cs" />
+    <Compile Include="Tinke\Visor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\Visor.Designer.cs">
+      <DependentUpon>Visor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\VisorHex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\VisorHex.Designer.cs">
+      <DependentUpon>VisorHex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tinke\VisorHexBasic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tinke\VisorHexBasic.Designer.cs">
+      <DependentUpon>VisorHexBasic.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Be.Windows.Forms.HexBox\HexBox.resx">
+      <DependentUpon>HexBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Be.Windows.Forms.HexBox\Properties\Resources.resx" />
+    <EmbeddedResource Include="Ekona\Images\Dialogs\OAMEditor.resx">
+      <DependentUpon>OAMEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekona\Images\ImageControl.resx">
+      <DependentUpon>ImageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekona\Images\PaletteControl.resx">
+      <DependentUpon>PaletteControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekona\Images\SpriteControl.resx">
+      <DependentUpon>SpriteControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ekona\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\3DModels\3DModels\ModelControl.resx">
+      <DependentUpon>ModelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\3DModels\3DModels\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\3DModels\3DModels\TextureControl.resx">
+      <DependentUpon>TextureControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\AI IGO DS\AI IGO DS\BinControl.resx">
+      <DependentUpon>BinControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\AI IGO DS\AI IGO DS\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\Common\Common\Imagen\BasicControl.resx">
+      <DependentUpon>BasicControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Common\Common\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\Common\Common\Sonido\iWav.resx">
+      <DependentUpon>iWav.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\DSDecmp\DSDecmp\CompressionControl.resx">
+      <DependentUpon>CompressionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\EDGEWORTH\EDGEWORTH\Espera.resx">
+      <DependentUpon>Espera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\EDGEWORTH\EDGEWORTH\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\Fonts\Fonts\CharControl.resources" />
+    <EmbeddedResource Include="Plugins\Fonts\Fonts\CharControl.resx">
+      <DependentUpon>CharControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Fonts\Fonts\FontControl.resources" />
+    <EmbeddedResource Include="Plugins\Fonts\Fonts\FontControl.resx">
+      <DependentUpon>FontControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Fonts\Fonts\MapChar.resources" />
+    <EmbeddedResource Include="Plugins\Fonts\Fonts\MapChar.resx">
+      <DependentUpon>MapChar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Fonts\Fonts\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\Images\Images\AnimationControl.resx">
+      <DependentUpon>AnimationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Images\Images\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\INAZUMA11\INAZUMA11\BlogpostControl.resx">
+      <DependentUpon>BlogpostControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\INAZUMA11\INAZUMA11\BlogresControl.resx">
+      <DependentUpon>BlogresControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\INAZUMA11\INAZUMA11\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\INAZUMA11\INAZUMA11\SubtitlesControl.resx">
+      <DependentUpon>SubtitlesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\INAZUMA11\INAZUMA11\USearchControl.resx">
+      <DependentUpon>USearchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\KIRBY DRO\KIRBY DRO\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\InfoAni.resx">
+      <DependentUpon>InfoAni.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\InfoBG.resx">
+      <DependentUpon>InfoBG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\InfoImage.resx">
+      <DependentUpon>InfoImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\InfoParte.resx">
+      <DependentUpon>InfoParte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\InfoPicture.resx">
+      <DependentUpon>InfoPicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\iText.resx">
+      <DependentUpon>iText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\NazoTextControl.resx">
+      <DependentUpon>NazoTextControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\LAYTON\LAYTON\ScriptControl.resx">
+      <DependentUpon>ScriptControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\BMPControl.resx">
+      <DependentUpon>BMPControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\MainWin.resx">
+      <DependentUpon>MainWin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\Text\MQuestText.resx">
+      <DependentUpon>MQuestText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\Text\ScenarioText.resx">
+      <DependentUpon>ScenarioText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\Text\SQcontrol.resx">
+      <DependentUpon>SQcontrol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\Text\SubtitleControl.resx">
+      <DependentUpon>SubtitleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\Text\SystemText.resx">
+      <DependentUpon>SystemText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\Text\TextControl.resx">
+      <DependentUpon>TextControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\NINOKUNI\NINOKUNI\TMAPcontrol.resx">
+      <DependentUpon>TMAPcontrol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\PSL\PSL\ATDTX.resx">
+      <DependentUpon>ATDTX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\PSL\PSL\GBCS.resx">
+      <DependentUpon>GBCS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\PSL\PSL\TexSprites.resx">
+      <DependentUpon>TexSprites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\SDAT\SDAT\InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\SDAT\SDAT\iSDAT.resx">
+      <DependentUpon>iSDAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\SDAT\SDAT\NewAudioOptions.resx">
+      <DependentUpon>NewAudioOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\SDAT\SDAT\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\SF FEATHER\SF FEATHER\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\Sounds\Sounds\Properties\Resources.resx" />
+    <EmbeddedResource Include="Plugins\Sounds\Sounds\SoundControl.resx">
+      <DependentUpon>SoundControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Sounds\Sounds\Waiting.resx">
+      <DependentUpon>Waiting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\TC UTK\TC UTK\TextControl.resx">
+      <DependentUpon>TextControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Teniprimgaku\Teniprimgaku\ScrnControl.resx">
+      <DependentUpon>ScrnControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Teniprimgaku\Teniprimgaku\TextViewer.resx">
+      <DependentUpon>TextViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\TIMEACE\TIMEACE\TextEditor.resx">
+      <DependentUpon>TextEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\TXT\TXT\iBMG.resx">
+      <DependentUpon>iBMG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\TXT\TXT\iTXT.resx">
+      <DependentUpon>iTXT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Autores.resx">
+      <DependentUpon>Autores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Debug.resx">
+      <DependentUpon>Debug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Dialog\CallPlugin.resx">
+      <DependentUpon>CallPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Dialog\FATExtract.resx">
+      <DependentUpon>FATExtract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Dialog\MapOptions.resx">
+      <DependentUpon>MapOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Dialog\SelectFile.resx">
+      <DependentUpon>SelectFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Dialog\SelectModeColor.resx">
+      <DependentUpon>SelectModeColor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Dialog\SelectOffset.resx">
+      <DependentUpon>SelectOffset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\EditRomInfo.resx">
+      <DependentUpon>EditRomInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Espera.resx">
+      <DependentUpon>Espera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Properties\Resources.resx" />
+    <EmbeddedResource Include="Tinke\RomInfo.resx">
+      <DependentUpon>RomInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Sistema.resx">
+      <DependentUpon>Sistema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\Visor.resx">
+      <DependentUpon>Visor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\VisorHex.resx">
+      <DependentUpon>VisorHex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tinke\VisorHexBasic.resx">
+      <DependentUpon>VisorHexBasic.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\objects\info\" />
+    <Folder Include=".git\refs\tags\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

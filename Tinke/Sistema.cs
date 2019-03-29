@@ -19,16 +19,14 @@
  */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using System.Xml.Linq;
 using Ekona;
+using Tinke.Randomizer;
 
 namespace Tinke
 {
@@ -44,11 +42,14 @@ namespace Tinke
         bool isMono;
         Keys keyDown;
         bool stop;
+        private string[] allowedGameCodes = {
+            "A5FP" // Curious Village - PAL
+        };
 
         public Sistema()
         {
             InitializeComponent();
-            this.Text = "Tinke " + Application.ProductVersion + " - romhacking by pleoNeX";
+            this.Text = "Professor Layton Randomizer - ";
 
             // The IE control of the Debug windows doesn't work in Mono
             isMono = (Type.GetType("Mono.Runtime") != null) ? true : false;
@@ -89,17 +90,10 @@ namespace Tinke
                 if (xLang.Name != "Language")
                     continue;
 
-                toolStripLanguage.DropDownItems.Add(
-                    xLang.Attribute("name").Value,
-                    iFlag,
-                    ToolStripLang_Click);
             }
 
-            ReadLanguage();
             #endregion
             this.Load += new EventHandler(Sistema_Load);
-            treeSystem.LostFocus += new EventHandler(treeSystem_LostFocus);
-            treeSystem.GotFocus += new EventHandler(treeSystem_LostFocus);
             keyDown = Keys.Escape;
         }
         void Sistema_Load(object sender, EventArgs e)
@@ -158,14 +152,14 @@ namespace Tinke
             {
                 espera.Abort();
 
-                debug = new Debug();
-                debug.FormClosing += new FormClosingEventHandler(debug_FormClosing);
-                debug.Add_Text(sb.ToString());
             }
             sb.Length = 0;
 
-            romInfo.FormClosing += new FormClosingEventHandler(romInfo_FormClosing);
-            LoadPreferences();
+            if(Array.IndexOf(allowedGameCodes, new string(romInfo.Cabecera.gameCode)) < 0){
+                MessageBox.Show("Your ROM is not a valid Layton game ROM or it's not supported yet", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
 
             this.Show();
             if (!isMono)
@@ -179,10 +173,6 @@ namespace Tinke
             {
                 XElement xml = XElement.Load(Application.StartupPath + Path.DirectorySeparatorChar + "Tinke.xml").Element("Options");
 
-                xml.Element("WindowDebug").Value = toolStripDebug.Checked.ToString();
-                xml.Element("WindowInformation").Value = toolStripInfoRom.Checked.ToString();
-                xml.Element("InstantSearch").Value = checkSearch.Checked.ToString();
-                xml.Element("ModeWindow").Value = toolStripVentana.Checked.ToString();
 
                 xml = xml.Parent;
                 xml.Save(Application.StartupPath + Path.DirectorySeparatorChar + "Tinke.xml");
@@ -236,14 +226,10 @@ namespace Tinke
             DateTime t6 = DateTime.Now;
 
             Stream stream = File.OpenRead(file);
-            treeSystem.BeginUpdate();
-            treeSystem.Nodes.Add(Create_Nodes(root, stream)); // Get the node hierarchy
-            treeSystem.EndUpdate();
             stream.Close();
             stream.Dispose();
 
             DateTime t7 = DateTime.Now;
-            treeSystem.Nodes[0].Expand();
 
             Get_SupportedFiles();
             DateTime t8 = DateTime.Now;
@@ -263,7 +249,7 @@ namespace Tinke
             Console.WriteLine("Number of directories: {0}", accion.LastFolderID - 0xF000 - 1);
             Console.WriteLine("Number of files: {0}</font>", fat.Length);
 
-            this.Text += "          " + new String(romInfo.Cabecera.gameTitle).Replace("\0", "") +
+            this.Text += new String(romInfo.Cabecera.gameTitle).Replace("\0", "") +
                 " (" + new String(romInfo.Cabecera.gameCode) + ')';
         }
         private sFolder Add_SystemFiles(Nitro.Estructuras.sFAT[] fatTable)
@@ -361,7 +347,6 @@ namespace Tinke
         }
         private void ReadFiles(string[] files)
         {
-            toolStripInfoRom.Enabled = false;
             btnSaveROM.Enabled = false;
 
             romInfo = new RomInfo(); // Para que no se formen errores...
@@ -396,11 +381,7 @@ namespace Tinke
 
             Set_Format(root);
             DateTime t4 = DateTime.Now;
-            treeSystem.BeginUpdate();
-            treeSystem.Nodes.Add(Create_Nodes(root)); // Show files
-            treeSystem.EndUpdate();
             DateTime t5 = DateTime.Now;
-            treeSystem.Nodes[0].Expand();
 
             Get_SupportedFiles();
             DateTime t6 = DateTime.Now;
@@ -418,7 +399,6 @@ namespace Tinke
         }
         private void ReadFolder(string folder)
         {
-            toolStripInfoRom.Enabled = false;
             btnSaveROM.Enabled = false;
 
             romInfo = new RomInfo(); // Para que no se formen errores...
@@ -444,11 +424,7 @@ namespace Tinke
 
             Set_Format(root);
             DateTime t4 = DateTime.Now;
-            treeSystem.BeginUpdate();
-            treeSystem.Nodes.Add(Create_Nodes(root)); // Show files
-            treeSystem.EndUpdate();
             DateTime t5 = DateTime.Now;
-            treeSystem.Nodes[0].Expand();
 
             Get_SupportedFiles();
             DateTime t6 = DateTime.Now;
@@ -471,95 +447,18 @@ namespace Tinke
             {
                 XElement xml = XElement.Load(Application.StartupPath + Path.DirectorySeparatorChar + "Tinke.xml").Element("Options");
 
-                toolStripDebug.Enabled = !isMono;
                 if (!isMono && xml.Element("WindowDebug").Value == "True")
                 {
-                    toolStripDebug.Checked = true;
                     debug.Show();
                     debug.Activate();
                 }
                 if (xml.Element("WindowInformation").Value == "True" && accion.ROMFile != "") // En caso de que se haya abierto una ROM, no archivos sueltos
                 {
-                    toolStripInfoRom.Checked = true;
                     romInfo.Show();
                     romInfo.Activate();
                 }
-                if (xml.Element("InstantSearch").Value == "True")
-                    checkSearch.Checked = true;
-                if (xml.Element("ModeWindow").Value == "True")
-                    toolStripVentana.Checked = true;
             }
             catch { MessageBox.Show(Tools.Helper.GetTranslation("Sistema", "S38"), Tools.Helper.GetTranslation("Sistema", "S3A")); }
-        }
-        private void ReadLanguage()
-        {
-            try
-            {
-                XElement xml = Tools.Helper.GetTranslation("Sistema");
-
-                toolStripOpen.Text = xml.Element("S01").Value;
-                toolStripInfoRom.Text = xml.Element("S02").Value;
-                toolStripDebug.Text = xml.Element("S03").Value;
-                toolStripVentana.Text = xml.Element("S04").Value;
-                //toolStripPlugin.Text = xml.Element("S05").Value;
-                //recargarPluginsToolStripMenuItem.Text = xml.Element("S06").Value;
-                toolStripLanguage.Text = xml.Element("S1E").Value;
-                columnHeader1.Text = xml.Element("S07").Value;
-                columnHeader2.Text = xml.Element("S08").Value;
-                listFile.Items[0].Text = xml.Element("S09").Value;
-                listFile.Items[1].Text = xml.Element("S0A").Value;
-                listFile.Items[2].Text = xml.Element("S0B").Value;
-                listFile.Items[3].Text = xml.Element("S0C").Value;
-                listFile.Items[4].Text = xml.Element("S0D").Value;
-                listFile.Items[5].Text = xml.Element("S0E").Value;
-                listFile.Items[6].Text = xml.Element("S40").Value;
-                linkAboutBox.Text = xml.Element("S0F").Value;
-                //toolStripDeleteChain.Text = xml.Element("S10").Value;
-                //borrarPaletaToolStripMenuItem.Text = xml.Element("S11").Value;
-                //borrarTileToolStripMenuItem.Text = xml.Element("S12").Value;
-                //borrarScreenToolStripMenuItem.Text = xml.Element("S13").Value;
-                //borrarCeldasToolStripMenuItem.Text = xml.Element("S14").Value;
-                //borrarAnimaciónToolStripMenuItem.Text = xml.Element("S15").Value;
-                //s10ToolStripMenuItem.Text = xml.Element("S10").Value;
-                toolStripOpenAs.Text = xml.Element("S16").Value;
-                toolStripMenuItem1.Text = xml.Element("S17").Value;
-                toolStripMenuItem2.Text = xml.Element("S18").Value;
-                toolStripMenuItem3.Text = xml.Element("S19").Value;
-                btnUnpack.Text = xml.Element("S1A").Value;
-                btnExtract.Text = xml.Element("S1B").Value;
-                btnSee.Text = xml.Element("S1C").Value;
-                btnHex.Text = xml.Element("S1D").Value;
-                label1.Text = xml.Element("S2D").Value;
-                checkSearch.Text = xml.Element("S2E").Value;
-                toolTipSearch.ToolTipTitle = xml.Element("S2F").Value;
-
-                toolTipSearch.SetToolTip(txtSearch,
-                    "<Ani> -> " + xml.Element("S24").Value +
-                    "\n<Cell> -> " + xml.Element("S23").Value +
-                    "\n<Map> -> " + xml.Element("S22").Value +
-                    "\n<Image> -> " + xml.Element("S21").Value +
-                    "\n<FullImage> -> " + xml.Element("S25").Value +
-                    "\n<Palette> -> " + xml.Element("S20").Value +
-                    "\n<Text> -> " + xml.Element("S26").Value +
-                    "\n<Video> -> " + xml.Element("S27").Value +
-                    "\n<Sound> -> " + xml.Element("S28").Value +
-                    "\n<Font> -> " + xml.Element("S29").Value +
-                    "\n<Compress> -> " + xml.Element("S2A").Value +
-                    "\n<Script> -> " + xml.Element("S34").Value +
-                    "\n<Pack> -> " + xml.Element("S3D").Value +
-                    "\n<Texture> -> " + xml.Element("S3E").Value +
-                    "\n<3DModel> -> " + xml.Element("S3F").Value +
-                    "\n<Unknown> -> " + xml.Element("S2B").Value
-                    );
-                btnImport.Text = xml.Element("S32").Value;
-                btnSaveROM.Text = xml.Element("S33").Value;
-                toolStripMenuComprimido.Text = xml.Element("S2A").Value;
-                toolStripAbrirTexto.Text = xml.Element("S26").Value;
-                toolStripAbrirFat.Text = xml.Element("S3D").Value;
-                btnPack.Text = xml.Element("S42").Value;
-                stripRefreshMsg.Text = xml.Element("S45").Value;
-            }
-            catch { throw new NotSupportedException("There was an error reading the language file"); }
         }
 
 
@@ -742,12 +641,12 @@ namespace Tinke
             if (nFiles == 0)
                 nFiles = 1;
 
-            lblSupport.Text = Tools.Helper.GetTranslation("Sistema", "S30") + ' ' + (filesSupported * 100 / nFiles) + '%';
-            if ((filesSupported * 100 / nFiles) >= 75)
-                lblSupport.Font = new Font("Consolas", 10, FontStyle.Bold | FontStyle.Underline);
-            else
-                lblSupport.Font = new Font("Consolas", 10, FontStyle.Regular);
         }
+
+        private void Sistema_KeyDown() { }
+
+        private void Sistema_KeyUp() { }
+
         private void Recursive_SupportedFiles(sFolder folder)
         {
             if (folder.files is List<sFile>)
@@ -785,259 +684,7 @@ namespace Tinke
         {
             if (stop)
                 return;
-
-            btnPack.Enabled = false;
-            accion.IDSelect = Convert.ToInt32(e.Node.Tag);
-            // Clean old information
-            for (int i = 0; i < listFile.Items.Count; i++)
-                if (listFile.Items[i].SubItems.Count == 2)
-                    listFile.Items[i].SubItems.RemoveAt(1);
-
-            if (e.Node.Name == "root")
-            {
-                listFile.Items[0].SubItems.Add("root");
-                listFile.Items[1].SubItems.Add("0xF000");
-                listFile.Items[2].SubItems.Add("");
-                listFile.Items[3].SubItems.Add("");
-                listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S1F"));
-                listFile.Items[5].SubItems.Add("");
-
-                btnHex.Enabled = false;
-                btnSee.Enabled = false;
-                toolStripOpenAs.Enabled = false;
-                btnUnpack.Enabled = true;
-            }
-            else if (Convert.ToUInt16(e.Node.Tag) < 0xF000)
-            {
-                sFile selectFile = accion.Selected_File();
-
-                listFile.Items[0].SubItems.Add(selectFile.name);
-                listFile.Items[1].SubItems.Add("0x" + String.Format("{0:X}", selectFile.id));
-                listFile.Items[2].SubItems.Add("0x" + String.Format("{0:X}", selectFile.offset));
-                listFile.Items[3].SubItems.Add(selectFile.size.ToString());
-                #region Get type of file
-                switch (selectFile.format)
-                {
-                    case Format.Palette:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S20"));
-                        break;
-                    case Format.Tile:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S21"));
-                        break;
-                    case Format.Map:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S22"));
-                        break;
-                    case Format.Cell:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S23"));
-                        break;
-                    case Format.Animation:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S24"));
-                        break;
-                    case Format.FullImage:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S25"));
-                        break;
-                    case Format.Text:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S26"));
-                        break;
-                    case Format.Video:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S27"));
-                        break;
-                    case Format.Sound:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S28"));
-                        break;
-                    case Format.Font:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S29"));
-                        break;
-                    case Format.Compressed:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S2A"));
-                        break;
-                    case Format.Unknown:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S2B"));
-                        break;
-                    case Format.System:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S31"));
-                        break;
-                    case Format.Script:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S34"));
-                        break;
-                    case Format.Pack:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S3D"));
-                        break;
-                    case Format.Texture:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S3E"));
-                        break;
-                    case Format.Model3D:
-                        listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S3F"));
-                        break;
-                }
-                #endregion
-                listFile.Items[5].SubItems.Add(selectFile.path);
-                listFile.Items[6].SubItems.Add(accion.Get_RelativePath(selectFile.id, "", accion.Root));
-                toolStripOpenAs.Enabled = true;
-
-                btnHex.Enabled = true;
-
-                if (selectFile.format != Format.Unknown)
-                    btnSee.Enabled = true;
-                else
-                    btnSee.Enabled = false;
-                if (selectFile.format == Format.Compressed || selectFile.format == Format.Pack)
-                    btnUnpack.Enabled = true;
-                else
-                    btnUnpack.Enabled = false;
-                if ((String)selectFile.tag == "Descomprimido")
-                {
-                    toolStripOpenAs.Enabled = false;
-                    btnUnpack.Enabled = true;
-                    btnPack.Enabled = true;
-                }
-
-                if (keyDown != Keys.Escape)
-                {
-                    KeyEventArgs eventKey = new KeyEventArgs(keyDown);
-                    keyDown = Keys.Escape;
-                    this.OnKeyDown(eventKey);
-                }
-            }
-            else
-            {
-                sFolder selectFolder = accion.Selected_Folder();
-
-                listFile.Items[0].SubItems.Add(e.Node.Name);
-                listFile.Items[1].SubItems.Add("0x" + String.Format("{0:X}", e.Node.Tag));
-                listFile.Items[2].SubItems.Add("");
-                listFile.Items[3].SubItems.Add("");
-                listFile.Items[4].SubItems.Add(Tools.Helper.GetTranslation("Sistema", "S1F"));
-                listFile.Items[5].SubItems.Add("");
-                listFile.Items[6].SubItems.Add(accion.Get_RelativePath(selectFolder.id, "", accion.Root));
-
-                btnHex.Enabled = false;
-                btnSee.Enabled = false;
-                toolStripOpenAs.Enabled = false;
-                btnUnpack.Enabled = true;
-            }
-
-            listFile.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
-
-        #region Key events
-        private void Sistema_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == keyDown)
-                return;
-
-            stop = true;
-
-            if (e.KeyCode == Keys.Space && treeSystem.Focused)
-            {
-                e.SuppressKeyPress = true;
-                btnSee.PerformClick();
-            }
-            else if (e.KeyCode == Keys.P && toolStripOpenAs.Enabled && treeSystem.Focused)
-            {
-                e.SuppressKeyPress = true;
-                keyDown = e.KeyCode;
-                toolStripMenuItem1.PerformClick();
-            }
-            else if (e.KeyCode == Keys.T && toolStripOpenAs.Enabled && treeSystem.Focused)
-            {
-                e.SuppressKeyPress = true;
-                keyDown = e.KeyCode;
-                toolStripMenuItem2.PerformClick();
-            }
-            else if (e.KeyCode == Keys.M && toolStripOpenAs.Enabled && treeSystem.Focused)
-            {
-                e.SuppressKeyPress = true;
-                keyDown = e.KeyCode;
-                toolStripMenuItem3.PerformClick();
-            }
-            else if (e.KeyCode == Keys.D && treeSystem.Focused)
-            {
-                e.SuppressKeyPress = true;
-                keyDown = e.KeyCode;
-
-                if (btnUnpack.Enabled)
-                    btnUnpack.PerformClick();
-            }
-            else if (e.KeyCode == Keys.X && treeSystem.Focused)
-            {
-                e.SuppressKeyPress = true;
-                treeSystem.SelectedNode.ExpandAll();
-            }
-            else if (e.KeyCode == Keys.C && treeSystem.Focused)
-            {
-                e.SuppressKeyPress = true;
-                treeSystem.SelectedNode.Collapse(false);
-            }
-            else if (e.KeyCode == Keys.H && treeSystem.Focused)
-            {
-                e.SuppressKeyPress = true;
-                btnHex.PerformClick();
-            }
-            else if (e.KeyCode == Keys.R && treeSystem.Focused)
-            {
-                this.Cursor = Cursors.WaitCursor;
-                e.SuppressKeyPress = true;
-
-                sFolder currFolder = accion.Selected_Folder();
-                if (!(currFolder.name is string))
-                {
-                    this.Cursor = Cursors.Default;
-                    stop = false;
-                    return;
-                }
-                
-                // Change the temp folder, used to export (if so) the files.
-                FolderBrowserDialog o = new FolderBrowserDialog();
-                o.Description = "Select new \"temp folder\".";
-                if (o.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                {
-                    this.Cursor = Cursors.Default;
-                    stop = false;
-                    return;
-                }
-                accion.Set_TempFolder(o.SelectedPath);
-                int a = accion.IDSelect;
-                Recursive_ReadFile(currFolder);
-
-                accion.Restore_TempFolder();
-                this.Cursor = Cursors.Default;
-            }
-
-            stop = false;
-        }
-        private void Sistema_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.P || e.KeyCode == Keys.T || e.KeyCode == Keys.M || e.KeyCode == Keys.D)
-                keyDown = Keys.Escape;
-        }
-        void treeSystem_LostFocus(object sender, EventArgs e)
-        {
-            keyDown = Keys.Escape;
-        }
-
-        private void Recursive_ReadFile(sFolder currFolder)
-        {
-            if (currFolder.files is List<sFile>)
-                for (int f = 0; f < currFolder.files.Count; f++)
-                    accion.Read_File(currFolder.files[f]);
-
-            if (currFolder.folders is List<sFolder>)
-            {
-                for (int f = 0; f < currFolder.folders.Count; f++)
-                {
-                    string tempFolder = accion.Get_TempFolder() + Path.DirectorySeparatorChar + currFolder.folders[f].name;
-                    if (!Directory.Exists(tempFolder))
-                        Directory.CreateDirectory(tempFolder);
-                    accion.Set_TempFolder(tempFolder);
-
-                    Recursive_ReadFile(currFolder.folders[f]);
-
-                    accion.Set_TempFolder(Directory.GetParent(tempFolder).FullName);
-                }
-            }
-        }
-        #endregion
 
         #region Buttons
         private void btnHex_Click(object sender, EventArgs e)
@@ -1063,39 +710,6 @@ namespace Tinke
                 accion.Change_File(hex.FileID, hex.NewFile);
         }
 
-        private void BtnSee(object sender, EventArgs e)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            if (toolStripVentana.Checked)
-            {
-                Visor visor = new Visor();
-                visor.Controls.Add(accion.See_File());
-                visor.Text += " - " + accion.Selected_File().name;
-                visor.Show();
-            }
-            else
-            {
-                for (int i = 0; i < panelObj.Controls.Count; i++)
-                    panelObj.Controls[i].Dispose();
-                panelObj.Controls.Clear();
-
-                Control control = accion.See_File();
-                if (control.Size.Height != 0 && control.Size.Width != 0)
-                {
-                    panelObj.Controls.Add(control);
-                    if (btnDesplazar.Text == ">>>>>")
-                        btnDesplazar.PerformClick();
-                }
-                else
-                    if (btnDesplazar.Text == "<<<<<")
-                        btnDesplazar.PerformClick();
-            }
-            this.Cursor = Cursors.Default;
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-        }
         private void treeSystem_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
@@ -1109,221 +723,7 @@ namespace Tinke
             }
         }
 
-        private void btnUnpack_Click(object sender, EventArgs e)
-        {
-            sFolder uncompress;
-
-            if (accion.IDSelect >= 0x0F000)
-            {
-                UnpackFolder();
-                return;
-            }
-            if ((String)accion.Selected_File().tag == "Descomprimido")
-            {
-                UnpackFolder();
-                return;
-            }
-
-            this.Cursor = Cursors.WaitCursor;
-            uncompress = accion.Unpack();
-
-            if (!(uncompress.files is List<sFile>) && !(uncompress.folders is List<sFolder>)) // En caso de que falle la extracción
-            {
-                if (!isMono)
-                    debug.Add_Text(sb.ToString());
-                sb.Length = 0;
-
-                this.Cursor = Cursors.Default;
-                keyDown = Keys.Escape;
-
-                MessageBox.Show(Tools.Helper.GetTranslation("Sistema", "S36"));
-                return;
-            }
-
-            toolStripOpenAs.Enabled = false;
-            btnPack.Enabled = true;
-
-            Get_SupportedFiles();
-            Add_TreeNodes(uncompress);
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-            this.Cursor = Cursors.Default;
-        }
-        private void Add_TreeNodes(sFolder unpacked)
-        {
-            // Add new files to the main tree
-            treeSystem.BeginUpdate();
-
-            TreeNode selected = treeSystem.SelectedNode;
-            selected.Nodes.Clear();
-            FolderToNode(unpacked, ref selected);
-            selected.ImageIndex = accion.ImageFormatFile(accion.Selected_File().format);
-            selected.SelectedImageIndex = selected.ImageIndex;
-
-            TreeNode[] nodos = new TreeNode[selected.Nodes.Count]; selected.Nodes.CopyTo(nodos, 0);
-            treeSystem.SelectedNode.Tag = selected.Tag;
-            accion.IDSelect = Convert.ToInt32(selected.Tag);
-            selected.Nodes.Clear();
-
-            treeSystem.SelectedNode.Nodes.AddRange((TreeNode[])nodos);
-            treeSystem.SelectedNode.Expand();
-
-            treeSystem.EndUpdate();
-            treeSystem.Focus();
-        }
-        private void UnpackFolder()
-        {
-            this.Cursor = Cursors.WaitCursor;
-            Thread espera = new System.Threading.Thread(ThreadEspera);
-            if (!isMono)
-                espera.Start("S04");
-
-            sFolder folderSelected = accion.Selected_Folder();
-            if (!(folderSelected.name is String)) // If it's the search folder or similar
-                folderSelected = Get_SearchedFiles();
-
-            Recursivo_UnpackFolder(folderSelected);
-            Get_SupportedFiles();
-
-            treeSystem.BeginUpdate();
-
-            treeSystem.Nodes.Clear();
-            treeSystem.Nodes.Add(Create_Nodes(accion.Root));
-            treeSystem.Nodes[0].Expand();
-
-            treeSystem.EndUpdate();
-
-            if (!isMono)
-            {
-                espera.Abort();
-                debug.Add_Text(sb.ToString());
-            }
-            sb.Length = 0;
-            this.Cursor = Cursors.Default;
-        }
-        private void Recursivo_UnpackFolder(sFolder currFolder)
-        {
-            if (currFolder.folders is List<sFolder>)
-            {
-                sFolder[] carpetas = new sFolder[currFolder.folders.Count];
-                currFolder.folders.CopyTo(carpetas);
-                foreach (sFolder subFolder in carpetas)
-                    Recursivo_UnpackFolder(subFolder);
-            }
-
-            if (currFolder.files is List<sFile>)
-            {
-                sFile[] archivos = new sFile[currFolder.files.Count];
-                currFolder.files.CopyTo(archivos);
-                foreach (sFile archivo in archivos)
-                    if (archivo.format == Format.Compressed || archivo.format == Format.Pack)
-                        accion.Unpack(archivo.id);
-            }
-        }
-        private void btnPack_Click(object sender, EventArgs e)
-        {
-            this.Cursor = Cursors.WaitCursor;
-
-            accion.Pack();
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-            this.Cursor = Cursors.Default;
-        }
-
-
-        private void btnExtraer_Click(object sender, EventArgs e)
-        {
-            if (Convert.ToUInt16(accion.IDSelect) < 0xF000)
-            {
-                if ((String)accion.Selected_File().tag == "Descomprimido")
-                {
-                    if (MessageBox.Show(Tools.Helper.GetTranslation("Sistema", "S3B"), "", MessageBoxButtons.YesNo,
-                          MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                        ExtractFolder();
-                    else
-                        ExtractFile();
-                }
-                else
-                    ExtractFile();
-            }
-            else
-                ExtractFolder();
-        }
-        private void ExtractFile()
-        {
-            this.Cursor = Cursors.WaitCursor;
-            sFile fileSelect = accion.Selected_File();
-
-            SaveFileDialog o = new SaveFileDialog();
-            o.FileName = fileSelect.name;
-            if (o.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                BinaryReader br = new BinaryReader(File.OpenRead(fileSelect.path));
-                br.BaseStream.Position = fileSelect.offset;
-                File.WriteAllBytes(o.FileName, br.ReadBytes((int)fileSelect.size));
-                br.Close();
-            }
-            this.Cursor = Cursors.Default;
-        }
-        private void ExtractFolder()
-        {
-            sFolder folderSelect = accion.Selected_Folder();
-
-            if (!(folderSelect.name is String)) // If it's the search folder or similar
-            {
-                folderSelect = Get_SearchedFiles();
-            }
-
-            FolderBrowserDialog o = new FolderBrowserDialog();
-            o.ShowNewFolderButton = true;
-            o.Description = Tools.Helper.GetTranslation("Sistema", "S2C");
-            if (o.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                Directory.CreateDirectory(o.SelectedPath + Path.DirectorySeparatorChar + folderSelect.name);
-
-                Thread espera = new System.Threading.Thread(ThreadEspera);
-                if (!isMono)
-                    espera.Start("S03");
-                RecursivoExtractFolder(folderSelect, o.SelectedPath + Path.DirectorySeparatorChar + folderSelect.name);
-                if (!isMono)
-                    espera.Abort();
-
-            }
-
-        }
-        private void RecursivoExtractFolder(sFolder currFolder, String path)
-        {
-            if (currFolder.files is List<sFile>)
-                foreach (sFile archivo in currFolder.files)
-                {
-                    string filePath = path + Path.DirectorySeparatorChar + archivo.name;
-                    for (int i = 0; File.Exists(filePath); i++)
-                    {
-                        filePath = path + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(archivo.name) + " (" +
-                            i.ToString() + ')' + Path.GetExtension(archivo.name);
-                    }
-
-                    BinaryReader br = new BinaryReader(File.OpenRead(archivo.path));
-                    br.BaseStream.Position = archivo.offset;
-                    File.WriteAllBytes(filePath, br.ReadBytes((int)archivo.size));
-                    br.Close();
-                }
-
-
-
-            if (currFolder.folders is List<sFolder>)
-            {
-                foreach (sFolder subFolder in currFolder.folders)
-                {
-                    Directory.CreateDirectory(path + Path.DirectorySeparatorChar + subFolder.name);
-                    RecursivoExtractFolder(subFolder, path + Path.DirectorySeparatorChar + subFolder.name);
-                }
-            }
-        }
+        
 
         private void btnSaveROM_Click(object sender, EventArgs e)
         {
@@ -1466,6 +866,18 @@ namespace Tinke
 
             Console.WriteLine(Tools.Helper.GetTranslation("Messages", "S09"), new FileInfo(arm9Binary).Length);
 
+            String seed = "MiUSlRDz" + seedTxt.Text;
+            GameRandomizer rando = null;
+            string gameCode = new string(romInfo.Cabecera.gameCode);
+            if(gameCode == "A5FP"){
+                rando = new CuriousVillagePALRandomizer(accion.Root, seed, accion);
+            }
+
+            if (rando != null)
+            {
+                rando.seedPuzzles();
+                rando.Write();
+            }
 
             // Escribismo el ARM7 Binary
             string arm7Binary = Path.GetTempFileName();
@@ -1659,7 +1071,6 @@ namespace Tinke
             if (!isMono)
             {
                 espera.Abort();
-                debug.Add_Text(sb.ToString());
             }
             sb.Length = 0;
         }
@@ -1715,505 +1126,8 @@ namespace Tinke
         }
         #endregion
 
-        #region Toolbar buttons
-        private void ToolStripLang_Click(Object sender, EventArgs e)
-        {
-            XElement xml = XElement.Load(Application.StartupPath + Path.DirectorySeparatorChar + "Tinke.xml");
-            string idioma = ((ToolStripMenuItem)sender).Text;
-            xml.Element("Options").Element("Language").Value = idioma;
-            xml.Save(Application.StartupPath + Path.DirectorySeparatorChar + "Tinke.xml");
-
-            MessageBox.Show(Tools.Helper.GetTranslation("Messages", "S07"));
-        }
-        private void stripRefreshMsg_Click(object sender, EventArgs e)
-        {
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-        }
-        private void toolStripInfoRom_Click(object sender, EventArgs e)
-        {
-            if (toolStripInfoRom.Checked)
-                romInfo.Show();
-            else
-                romInfo.Hide();
-        }
-        private void toolStripDebug_Click(object sender, EventArgs e)
-        {
-            if (toolStripDebug.Checked)
-                debug.Show();
-            else
-                debug.Hide();
-        }
-        private void toolStripOpen_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(Application.ExecutablePath);
-        }
-        private void toolStripVentana_Click(object sender, EventArgs e)
-        {
-            if (toolStripVentana.Checked)
-            {
-                this.Width = 650;
-                btnDesplazar.Enabled = false;
-                if (panelObj.Controls.Count > 0)
-                {
-                    Visor visor = new Visor();
-                    visor.Controls.Add(panelObj.Controls[0]);
-                    visor.Show();
-                }
-            }
-            else
-            {
-                btnDesplazar.Enabled = true;
-                btnDesplazar.Text = ">>>>>";
-            }
-
-        }
-        void romInfo_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            toolStripInfoRom.Checked = romInfo.Visible;
-        }
-        void debug_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            toolStripDebug.Checked = debug.Visible;
-        }
-        #endregion
-
-        #region Menu-> Open as...
-        private void ShowControl(Control control, string name)
-        {
-            if (toolStripVentana.Checked)
-            {
-                Visor visor = new Visor();
-                visor.Controls.Add(control);
-                visor.Text += " - " + name;
-                visor.Show();
-            }
-            else if (control is Control)
-            {
-                panelObj.Controls.Clear();
-
-                if (control.Size.Height != 0 && control.Size.Width != 0)
-                {
-                    panelObj.Controls.Add(control);
-                    if (btnDesplazar.Text == ">>>>>")
-                        btnDesplazar.PerformClick();
-                }
-                else
-                    if (btnDesplazar.Text == "<<<<<")
-                        btnDesplazar.PerformClick();
-            }
-        }
-        private void toolAbrirComoItemPaleta_Click(object sender, EventArgs e)
-        {
-            sFile selectedFile = accion.Selected_File();
-            String[] pluginList = accion.Get_PluginsList();
-
-            Control control = new Control();
-
-            if (pluginList.Contains("Images.Main"))
-                control = (Control)accion.Call_Plugin(selectedFile, "Images.Main", "ntfp", selectedFile.id, "", 1);
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-
-            ShowControl(control, selectedFile.name);
-        }
-        private void toolAbrirComoItemTile_Click(object sender, EventArgs e)
-        {
-            sFile selectedFile = accion.Selected_File();
-            String[] pluginList = accion.Get_PluginsList();
-
-            Control control = new Control();
-
-            if (pluginList.Contains("Images.Main"))
-                control = (Control)accion.Call_Plugin(selectedFile, "Images.Main", "ntft", selectedFile.id, "", 1);
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-
-            ShowControl(control, selectedFile.name);
-        }
-        private void toolAbrirComoItemScreen_Click(object sender, EventArgs e)
-        {
-            sFile selectedFile = accion.Selected_File();
-            String[] pluginList = accion.Get_PluginsList();
-
-            Control control = new Control();
-
-            if (pluginList.Contains("Images.Main"))
-                control = (Control)accion.Call_Plugin(selectedFile, "Images.Main", "nbfs", selectedFile.id, "", 1);
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-
-            ShowControl(control, selectedFile.name);
-        }
-        private void s2AToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Dialog.SelectOffset dialog = new Dialog.SelectOffset();
-            if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                return;
-
-            #region Save the new file
-
-            String currFile = Path.GetTempFileName();
-            accion.Save_File(accion.IDSelect, currFile);
-
-            string tempFile = Path.GetTempPath() + Path.DirectorySeparatorChar + accion.Selected_File().name;
-            Byte[] compressFile = new Byte[(new FileInfo(currFile).Length) - dialog.Offset];
-            Array.Copy(File.ReadAllBytes(currFile), dialog.Offset, compressFile, 0, compressFile.Length); ;
-            File.WriteAllBytes(tempFile, compressFile);
-            #endregion
-
-            sFolder uncompress = accion.Unpack(tempFile, accion.IDSelect);
-
-            if (!(uncompress.files is List<sFile>) && !(uncompress.folders is List<sFolder>))
-            {
-                MessageBox.Show(Tools.Helper.GetTranslation("Sistema", "S36"));
-                return;
-            }
-
-            toolStripOpenAs.Enabled = false;
-            Get_SupportedFiles();
-
-            TreeNode selected = treeSystem.SelectedNode;
-            FolderToNode(uncompress, ref selected);
-            selected.ImageIndex = accion.ImageFormatFile(accion.Selected_File().format);
-            selected.SelectedImageIndex = selected.ImageIndex;
-
-            // Add nodes
-            TreeNode[] nodos = new TreeNode[selected.Nodes.Count]; selected.Nodes.CopyTo(nodos, 0);
-            treeSystem.SelectedNode.Tag = selected.Tag;
-            accion.IDSelect = Convert.ToInt32(selected.Tag);
-            selected.Nodes.Clear();
-
-            treeSystem.SelectedNode.Nodes.AddRange((TreeNode[])nodos);
-            treeSystem.SelectedNode.Expand();
-            treeSystem.Focus();
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-        }
-        private void toolStripAbrirTexto_Click(object sender, EventArgs e)
-        {
-            sFile selectedFile = accion.Selected_File();
-            String[] pluginList = accion.Get_PluginsList();
-
-            Control control = new Control();
-
-            if (pluginList.Contains("TXT.TXT"))
-                control = (Control)accion.Call_Plugin(selectedFile, "TXT.TXT", "txt", selectedFile.id, "", 1);
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-
-            ShowControl(control, selectedFile.name);
-        }
-        private void toolStripAbrirFat_Click(object sender, EventArgs e)
-        {
-            sFile currFile = accion.Selected_File();
-            string fileToRead = accion.TempFolder + Path.DirectorySeparatorChar + Path.GetRandomFileName();
-            accion.Save_File(currFile, fileToRead);
-
-            Dialog.FATExtract dialog = new Dialog.FATExtract(fileToRead);
-            dialog.TempFolder = accion.TempFolder;
-            if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                return;
-
-            Thread wait = new Thread(ThreadEspera);
-            if (!isMono)
-                wait.Start("S04");
-
-            sFolder uncompress = dialog.Files;
-            dialog.Dispose();
-
-            if (!(uncompress.files is List<sFile>) || dialog.DialogResult != System.Windows.Forms.DialogResult.OK)
-            {
-                if (!isMono)
-                    wait.Abort();
-
-                MessageBox.Show(Tools.Helper.GetTranslation("Sistema", "S36"));
-                return;
-            }
-
-            currFile.format = Format.Pack;
-            bool edit = accion.IsNewRom;
-            accion.Change_File(currFile.id, currFile, accion.Root);
-            accion.IsNewRom = edit;
-            accion.Add_Files(ref uncompress, accion.IDSelect);
-
-            #region Add files to the treeList
-            toolStripOpenAs.Enabled = false;
-            Get_SupportedFiles();
-
-            TreeNode selected = treeSystem.SelectedNode;
-            FolderToNode(uncompress, ref selected);
-
-            selected.ImageIndex = accion.ImageFormatFile(Format.Pack);
-            selected.SelectedImageIndex = accion.ImageFormatFile(Format.Pack);
-
-            // Agregamos los nodos al árbol
-            TreeNode[] nodos = new TreeNode[selected.Nodes.Count]; selected.Nodes.CopyTo(nodos, 0);
-            treeSystem.SelectedNode.Tag = selected.Tag;
-            accion.IDSelect = Convert.ToInt32(selected.Tag);
-            selected.Nodes.Clear();
-
-            treeSystem.SelectedNode.Nodes.AddRange((TreeNode[])nodos);
-            treeSystem.SelectedNode.Expand();
-            #endregion
-
-            if (!isMono)
-            {
-                wait.Abort();
-                debug.Add_Text(sb.ToString());
-            }
-            sb.Length = 0;
-        }
-        private void callPluginToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sFile opFile = accion.Selected_File();
-
-            Dialog.CallPlugin win = new Dialog.CallPlugin(accion.Get_PluginsList());
-            if (opFile.name.Contains('.'))
-                win.Extension = opFile.name.Substring(opFile.name.IndexOf('.') + 1);
-            win.ID = opFile.id;
-            win.Header = accion.Get_MagicIDS(opFile);
-
-            if (win.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                return;
-
-            this.Cursor = Cursors.WaitCursor;
-            Object action = accion.Call_Plugin(opFile, win.Plugin, win.Extension, win.ID, win.Header, win.Action);
-
-            if (!isMono)
-                debug.Add_Text(sb.ToString());
-            sb.Length = 0;
-
-
-            switch (win.Action)
-            {
-                case 1: // Show_Info
-                    if (action == null)
-                        break;
-
-                    if (toolStripVentana.Checked)
-                    {
-                        Visor visor = new Visor();
-                        visor.Controls.Add((Control)action);
-                        visor.Text += " - " + opFile.name;
-                        visor.Show();
-                    }
-                    else
-                    {
-                        for (int i = 0; i < panelObj.Controls.Count; i++)
-                            panelObj.Controls[i].Dispose();
-                        panelObj.Controls.Clear();
-
-                        Control control = (Control)action;
-                        if (control.Size.Height != 0 && control.Size.Width != 0)
-                        {
-                            panelObj.Controls.Add(control);
-                            if (btnDesplazar.Text == ">>>>>")
-                                btnDesplazar.PerformClick();
-                        }
-                        else
-                            if (btnDesplazar.Text == "<<<<<")
-                                btnDesplazar.PerformClick();
-                    }
-                    break;
-
-                case 2:     // Unpack
-                    if (action == null)
-                        break;
-
-                    sFolder unpacked = (sFolder)action;
-                    if (!(unpacked.files is List<sFile>) && !(unpacked.folders is List<sFolder>))
-                    {
-                        MessageBox.Show(Tools.Helper.GetTranslation("Sistema", "S36"));
-                        break;
-                    }
-
-                    toolStripOpenAs.Enabled = false;
-
-                    Get_SupportedFiles();
-                    Add_TreeNodes(unpacked);
-                    break;
-
-                case 4: // Get format
-                    MessageBox.Show(((Format)action).ToString());
-                    break;
-            }
-
-            this.Cursor = Cursors.Default;
-            win.Dispose();
-        }
-        #endregion
-
-        #region Search
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            if (txtSearch.Text == "")
-            {
-                treeSystem.BeginUpdate();
-                treeSystem.Nodes.Clear();
-                treeSystem.Nodes.Add(Create_Nodes(accion.Root));
-                treeSystem.Nodes[0].Expand();
-                treeSystem.EndUpdate();
-                return;
-            }
-
-            Thread waiting = new System.Threading.Thread(ThreadEspera);
-
-            sFolder resul = new sFolder();
-            resul.files = new List<sFile>();
-            resul.folders = new List<sFolder>();
-
-            #region Search type
-            if (txtSearch.Text == "<Ani>")
-                resul = accion.Search_File(Format.Animation);
-            else if (txtSearch.Text == "<Cell>")
-                resul = accion.Search_File(Format.Cell);
-            else if (txtSearch.Text == "<Map>")
-                resul = accion.Search_File(Format.Map);
-            else if (txtSearch.Text == "<Image>")
-                resul = accion.Search_File(Format.Tile);
-            else if (txtSearch.Text == "<FullImage>")
-                resul = accion.Search_File(Format.FullImage);
-            else if (txtSearch.Text == "<Palette>")
-                resul = accion.Search_File(Format.Palette);
-            else if (txtSearch.Text == "<Text>")
-                resul = accion.Search_File(Format.Text);
-            else if (txtSearch.Text == "<Video>")
-                resul = accion.Search_File(Format.Video);
-            else if (txtSearch.Text == "<Sound>")
-                resul = accion.Search_File(Format.Sound);
-            else if (txtSearch.Text == "<Font>")
-                resul = accion.Search_File(Format.Font);
-            else if (txtSearch.Text == "<Compress>")
-                resul = accion.Search_File(Format.Compressed);
-            else if (txtSearch.Text == "<Script>")
-                resul = accion.Search_File(Format.Script);
-            else if (txtSearch.Text == "<Pack>")
-                resul = accion.Search_File(Format.Pack);
-            else if (txtSearch.Text == "<Texture>")
-                resul = accion.Search_File(Format.Texture);
-            else if (txtSearch.Text == "<3DModel>")
-                resul = accion.Search_File(Format.Model3D);
-            else if (txtSearch.Text == "<Unknown>")
-                resul = accion.Search_File(Format.Unknown);
-            else if (txtSearch.Text.StartsWith("Length: ") && txtSearch.Text.Length > 8 && txtSearch.Text.Length < 17)
-                resul = accion.Search_FileLength(Convert.ToInt32(txtSearch.Text.Substring(7)));
-            else if (txtSearch.Text.StartsWith("ID: ") && txtSearch.Text.Length > 4 && txtSearch.Text.Length < 13)
-            {
-                sFile searchedFile = accion.Search_File(Convert.ToInt32(txtSearch.Text.Substring(4), 16));
-                if (searchedFile.name is String)
-                    resul.files.Add(searchedFile);
-            }
-            else if (txtSearch.Text.StartsWith("Offset: ") && txtSearch.Text.Length > 8 && txtSearch.Text.Length < 17)
-                resul = accion.Search_FileOffset(Convert.ToInt32(txtSearch.Text.Substring(8), 16));
-            else if (txtSearch.Text.StartsWith("Header: ") && txtSearch.Text.Length > 8)
-            {
-                if (!isMono)
-                    waiting.Start("S07");
-
-                List<byte> search = new List<byte>();
-                for (int i = 8; i + 1 < txtSearch.Text.Length; i += 2)
-                    search.Add(Convert.ToByte(txtSearch.Text.Substring(i, 2), 16));
-
-                if (search.Count != 0)
-                    resul = accion.Search_File(search.ToArray());
-            }
-            else
-                resul = accion.Search_File(txtSearch.Text);
-            #endregion
-
-            resul.id = (ushort)accion.LastFolderID;
-            accion.LastFolderID++;
-            if (resul.folders is List<sFolder>)
-            {
-                for (int i = 0; i < resul.folders.Count; i++)
-                {
-                    sFolder newFolder = resul.folders[i];
-                    newFolder.id = resul.id;
-                    resul.folders[i] = newFolder;
-                }
-            }
-
-            TreeNode nodo = new TreeNode(Tools.Helper.GetTranslation("Sistema", "S2D"));
-            FolderToNode(resul, ref nodo);
-
-            treeSystem.BeginUpdate();
-            treeSystem.Nodes.Clear();
-            nodo.Name = Tools.Helper.GetTranslation("Sistema", "S2D");
-            treeSystem.Nodes.Add(nodo);
-            treeSystem.ExpandAll();
-            treeSystem.EndUpdate();
-
-            if (!isMono && waiting.ThreadState == ThreadState.Running)
-                waiting.Abort();
-        }
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            if (!checkSearch.Checked)
-                return;
-            btnSearch.PerformClick();
-        }
-        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                btnSearch.PerformClick();
-        }
-        private sFolder Get_SearchedFiles()
-        {
-            sFolder searchFolder = new sFolder();
-            searchFolder.files = new List<sFile>();
-            searchFolder.folders = new List<sFolder>();
-            searchFolder.name = treeSystem.SelectedNode.Name;
-
-            for (int i = 0; i < treeSystem.SelectedNode.Nodes.Count; i++)
-            {
-                int id = Convert.ToInt32(treeSystem.SelectedNode.Nodes[i].Tag);
-                if (id < 0xF000)
-                    searchFolder.files.Add(accion.Search_File(id));
-                else
-                {
-                    sFolder carpeta = new sFolder();
-                    carpeta.files = new List<sFile>();
-                    carpeta.name = treeSystem.SelectedNode.Nodes[i].Name;
-                    for (int j = 0; j < treeSystem.SelectedNode.Nodes[i].Nodes.Count; j++)
-                        carpeta.files.Add(accion.Search_File(Convert.ToUInt16(treeSystem.SelectedNode.Nodes[i].Nodes[j].Tag)));
-                    searchFolder.folders.Add(carpeta);
-                }
-            }
-            return searchFolder;
-        }
-        #endregion
-
-        private void linkAboutBox_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            linkAboutBox.LinkVisited = false;
-            Autores ven = new Autores();
-            ven.ShowDialog();
-        }
-        private void btnDesplazar_Click(object sender, EventArgs e)
-        {
-            if (btnDesplazar.Text == ">>>>>")
-            {
-                this.Width += panelObj.Width + 7;
-                btnDesplazar.Text = "<<<<<";
-            }
-            else
-            {
-                this.Width -= (panelObj.Width + 7);
-                btnDesplazar.Text = ">>>>>";
-            }
-        }
+        
 
     }
+
 }

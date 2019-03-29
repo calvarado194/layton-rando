@@ -350,9 +350,11 @@ namespace Tinke.Nitro
                     continue;
 
                 sFile currFile = BuscarArchivo(sortedIDs[i], root);
+                
                 if (!(currFile.name is string) || currFile.name.StartsWith("overlay")) // Los overlays no van en esta sección
                     continue;
 
+                Console.WriteLine(currFile.name);
                 if (currFile.path == romFile)
                 {
                     br.BaseStream.Position = currFile.offset;
