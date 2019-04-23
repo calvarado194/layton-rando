@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2011  pleoNeX
+ * Copyright (C) 2011  pleoNeX, ikuyo
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -162,9 +162,6 @@ namespace Tinke
             }
 
             this.Show();
-            if (!isMono)
-                debug.ShowInTaskbar = true;
-            romInfo.ShowInTaskbar = true;
             this.Activate();
         }
         private void Sistema_FormClosing(object sender, FormClosingEventArgs e)
@@ -866,7 +863,12 @@ namespace Tinke
 
             Console.WriteLine(Tools.Helper.GetTranslation("Messages", "S09"), new FileInfo(arm9Binary).Length);
 
-            String seed = "MiUSlRDz" + seedTxt.Text;
+            string seedStr = seedTxt.Text;
+            if (seedStr == "")
+            {
+                seedStr = DateTime.Now.ToString("s");
+            }
+            String seed = "MiUSlRDz" + seedStr;
             GameRandomizer rando = null;
             string gameCode = new string(romInfo.Cabecera.gameCode);
             if(gameCode == "A5FP"){

@@ -34,6 +34,9 @@
   <PropertyGroup>
     <RootNamespace>LaytonRando</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon%281%29.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -90,6 +93,7 @@
     <Content Include="changelog.txt" />
     <Content Include="Ekona\Ekona.csproj" />
     <Content Include="Ekona\Licence.txt" />
+    <Content Include="favicon%281%29.ico" />
     <Content Include="Licence.txt" />
     <Content Include="Plugins\1stPlayable\1stPlayable.sln" />
     <Content Include="Plugins\1stPlayable\1stPlayable\1stPlayable.csproj" />

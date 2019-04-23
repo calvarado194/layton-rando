@@ -8,8 +8,8 @@
     <ProjectGuid>{0C21698B-0FC4-48E8-90FD-0DA70BFE9BB8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tinke</RootNamespace>
-    <AssemblyName>Tinke</AssemblyName>
+    <RootNamespace>LaytonRando</RootNamespace>
+    <AssemblyName>LaytonRando</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>Tinke.Program</StartupObject>
@@ -123,7 +123,7 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>nintendo-ds.ico</ApplicationIcon>
+    <ApplicationIcon>layton.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
@@ -360,7 +360,7 @@
     <Content Include="langs\it-it.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="nintendo-ds.ico" />
+    <Content Include="layton.ico" />
     <Content Include="Nitro\MakerCodes.txt" />
     <None Include="Resources\compress.png" />
     <None Include="Resources\picture_edit.png" />

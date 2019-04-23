@@ -45,11 +45,11 @@ SET msbuild_plugin=%msbuild% /p:OutputPath="%build_dir%\Plugins\\"
 
 REM Compile program in standard directory, to allow plugins find Ekona
 ECHO Compiling base library
-%msbuild_path% /p:TargetFrameworkVersion=%netver% Tinke.sln > error.log || (TYPE error.log & EXIT /B 1)
+%msbuild_path% /p:TargetFrameworkVersion=%netver% cv-rando.sln > error.log || (TYPE error.log & EXIT /B 1)
 
 REM Compiling program
 echo Compiling Tinke
-%msbuild% /p:Platform=%plat% /p:OutputPath="%build_dir%\\" Tinke.sln > error.log || (TYPE error.log & EXIT /B 1)
+%msbuild% /p:Platform=%plat% /p:OutputPath="%build_dir%\\" cv-rando.sln > error.log || (TYPE error.log & EXIT /B 1)
 
 REM Compiling format plugins
 call :compile_plugin "Plugins\Pack\Pack.sln"
@@ -89,9 +89,6 @@ call :compile_plugin "Plugins\SONICRUSHADV\SONICRUSHADV.sln"
 call :compile_plugin "Plugins\1stPlayable\1stPlayable.sln"
 call :compile_plugin "Plugins\JUS\JUS.sln"
 
-REM Remove the error log
-DEL error.log
-
 REM Copy dependencies
 ECHO Copying dependencies
 COPY "%cd%\Plugins\3DModels\OpenTK.dll" "%build_dir%\" > nul || (EXIT /B 1)
@@ -101,7 +98,7 @@ REM Copy license and changelog
 ECHO Copying license and changelog
 COPY "%cd%\changelog.txt" "%build_dir%\" > nul || (EXIT /B 1)
 COPY "%cd%\Licence.txt" "%build_dir%\" > nul || (EXIT /B 1)
-COPY "%cd%\Tinke\app.config" "%build_dir%\Tinke.exe.config" > nul || (EXIT /B 1)
+COPY "%cd%\Tinke\app.config" "%build_dir%\cv-rando.exe.config" > nul || (EXIT /B 1)
 
 REM Delete debug files
 ECHO Removing debug files

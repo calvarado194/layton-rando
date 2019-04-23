@@ -25,6 +25,7 @@ namespace Tinke.Randomizer
         protected string riddleHutScriptFolder = "";
         protected string riddleHutScriptName = "";
         protected byte riddleCheckFlagByte = 0xE7;
+        protected byte puzzleExecuteByte = 0x48;
 
         public GameRandomizer(sFolder root, string seed, Acciones accion)
         {
@@ -128,7 +129,7 @@ namespace Tinke.Randomizer
             sFolder eventRoot = this.findFolder(this.eventScriptFolder);
             for (int fileIndex = 0; fileIndex < eventRoot.files.Count; fileIndex++){
                 sFile file = eventRoot.files[fileIndex];
-                byte[] puzzleMask = { 0x48, 0x00, 0x01, 0x00 };
+                byte[] puzzleMask = { this.puzzleExecuteByte, 0x00, 0x01, 0x00 };
                 byte[] riddleCheckMask = { this.riddleCheckFlagByte, 0x00, 0x01, 0x00 };
 
                 string hexFile = Path.GetTempFileName();
