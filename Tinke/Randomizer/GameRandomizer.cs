@@ -24,8 +24,13 @@ namespace Tinke.Randomizer
         protected string roomScriptFolder = "";
         protected string riddleHutScriptFolder = "";
         protected string riddleHutScriptName = "";
-        protected byte riddleCheckFlagByte = 0xE7;
-        protected byte puzzleExecuteByte = 0x48;
+        protected byte riddleCheckFlagByte;
+        protected byte puzzleExecuteByte;
+
+        //settings
+        public bool removePuzzleCounterChecks = false;
+        public bool removeRiddleHutChecks = false;
+        public bool enforceMaxPuzzles = false;
 
         public GameRandomizer(sFolder root, string seed, Acciones accion)
         {
@@ -35,7 +40,8 @@ namespace Tinke.Randomizer
             this.accion = accion;
         }
 
-        public void seedPuzzles(){
+        public void seedPuzzles()
+        {
             sFolder puzzleFolder = this.findFolder(this.puzzlePath);
             sFile qinfo = this.findFile(puzzleFolder, "qtitle.gds");
 
@@ -47,14 +53,17 @@ namespace Tinke.Randomizer
 
             byte[] fileBytes = binr.ReadBytes((int)qinfo.size);
 
-            for (int b = 0; b < fileBytes.Length; b++) {
-                if (fileBytes[b] == this.puzzleSeparatorByte) {
+            for (int b = 0; b < fileBytes.Length; b++)
+            {
+                if (fileBytes[b] == this.puzzleSeparatorByte)
+                {
                     puzzleCounter++;
                 }
             }
 
             this.puzzleIDs = new byte[puzzleCounter];
-            for (int index = 0; index < puzzleCounter; index++) {
+            for (int index = 0; index < puzzleCounter; index++)
+            {
                 puzzleIDs[index] = (byte)(index + 1);
             }
 
@@ -64,8 +73,10 @@ namespace Tinke.Randomizer
 
         protected sFile findFile(sFolder folder, string name)
         {
-            foreach (sFile tmpFile in folder.files) {
-                if (tmpFile.name == name) {
+            foreach (sFile tmpFile in folder.files)
+            {
+                if (tmpFile.name == name)
+                {
                     return tmpFile;
                 }
             }
@@ -77,10 +88,12 @@ namespace Tinke.Randomizer
          * Given an absolute folder path, from root, return pointer to said folder.
          * Throws RandomizerException if not found
          */
-        protected sFolder findFolder(string path) {
+        protected sFolder findFolder(string path)
+        {
             sFolder tmp = this.gameRoot;
 
-            if(path.StartsWith("/")){
+            if (path.StartsWith("/"))
+            {
                 path = path.Substring(1);
             }
             string[] pathArray = path.Split('/');
@@ -127,7 +140,8 @@ namespace Tinke.Randomizer
         {
             //write event scripts
             sFolder eventRoot = this.findFolder(this.eventScriptFolder);
-            for (int fileIndex = 0; fileIndex < eventRoot.files.Count; fileIndex++){
+            for (int fileIndex = 0; fileIndex < eventRoot.files.Count; fileIndex++)
+            {
                 sFile file = eventRoot.files[fileIndex];
                 byte[] puzzleMask = { this.puzzleExecuteByte, 0x00, 0x01, 0x00 };
                 byte[] riddleCheckMask = { this.riddleCheckFlagByte, 0x00, 0x01, 0x00 };
@@ -142,6 +156,7 @@ namespace Tinke.Randomizer
                 {
                     bool foundSequence = true;
 
+                    //find puzzle check/execute calls
                     for (int c = 0; c < puzzleMask.Length; c++)
                     {
                         if (fileBytes[b + c] != puzzleMask[c])
@@ -179,7 +194,18 @@ namespace Tinke.Randomizer
                     //prevent puzzle 001
                     if (this.puzzleIDs[id_to_replace] == 0x24) continue;
 
-                    fileBytes[b + puzzleMask.Length] = this.puzzleIDs[id_to_replace];
+                    //if riddle checks are disabled, remove this entirely
+                    if (this.removeRiddleHutChecks)
+                    {
+                        for (int c = 0; c <= riddleCheckMask.Length; c++)
+                        {
+                            fileBytes[b + c] = 0x00;
+                        }
+                    }
+                    else
+                    {
+                        fileBytes[b + puzzleMask.Length] = this.puzzleIDs[id_to_replace];
+                    }
                 }
 
                 File.WriteAllBytes(hexFile, fileBytes);
@@ -221,8 +247,12 @@ namespace Tinke.Randomizer
                     //prevent puzzle 001
                     if (this.puzzleIDs[id_to_replace] == 0x24) continue;
 
+
+
                     fileBytes[b + puzzleMask.Length] = this.puzzleIDs[id_to_replace];
                 }
+
+                fileBytes = applyGameSpecificSettings(fileBytes, file.name);
 
                 File.WriteAllBytes(hexFile, fileBytes);
                 binr.Close();
@@ -232,5 +262,7 @@ namespace Tinke.Randomizer
 
             return;
         }
+
+        protected abstract byte[] applyGameSpecificSettings(byte[] fileBytes, string filename);
     }
 }

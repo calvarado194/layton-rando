@@ -59,6 +59,13 @@ namespace Tinke
             this.btnSaveROM = new System.Windows.Forms.Button();
             this.seedTxt = new System.Windows.Forms.TextBox();
             this.seed_txt = new System.Windows.Forms.Label();
+            this.disablePuzzleCheckBox = new System.Windows.Forms.CheckBox();
+            this.enforceMaxPuzzlesBox = new System.Windows.Forms.CheckBox();
+            this.disableRiddleHutBox = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // iconos
@@ -126,7 +133,7 @@ namespace Tinke
             // 
             this.btnSaveROM.ImageIndex = 19;
             this.btnSaveROM.ImageList = this.iconos;
-            this.btnSaveROM.Location = new System.Drawing.Point(229, 73);
+            this.btnSaveROM.Location = new System.Drawing.Point(229, 248);
             this.btnSaveROM.Name = "btnSaveROM";
             this.btnSaveROM.Size = new System.Drawing.Size(110, 40);
             this.btnSaveROM.TabIndex = 19;
@@ -137,7 +144,7 @@ namespace Tinke
             // 
             // seedTxt
             // 
-            this.seedTxt.Location = new System.Drawing.Point(101, 23);
+            this.seedTxt.Location = new System.Drawing.Point(101, 18);
             this.seedTxt.MaxLength = 8;
             this.seedTxt.Name = "seedTxt";
             this.seedTxt.Size = new System.Drawing.Size(238, 20);
@@ -146,17 +153,82 @@ namespace Tinke
             // seed_txt
             // 
             this.seed_txt.AutoSize = true;
-            this.seed_txt.Location = new System.Drawing.Point(12, 26);
+            this.seed_txt.Location = new System.Drawing.Point(12, 21);
             this.seed_txt.Name = "seed_txt";
             this.seed_txt.Size = new System.Drawing.Size(82, 13);
             this.seed_txt.TabIndex = 21;
             this.seed_txt.Text = "Seed parameter";
             // 
+            // disablePuzzleCheckBox
+            // 
+            this.disablePuzzleCheckBox.AutoSize = true;
+            this.disablePuzzleCheckBox.Location = new System.Drawing.Point(11, 25);
+            this.disablePuzzleCheckBox.Name = "disablePuzzleCheckBox";
+            this.disablePuzzleCheckBox.Size = new System.Drawing.Size(179, 17);
+            this.disablePuzzleCheckBox.TabIndex = 22;
+            this.disablePuzzleCheckBox.Text = "Remove Puzzle Number Checks";
+            this.disablePuzzleCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // enforceMaxPuzzlesBox
+            // 
+            this.enforceMaxPuzzlesBox.AutoSize = true;
+            this.enforceMaxPuzzlesBox.Location = new System.Drawing.Point(11, 84);
+            this.enforceMaxPuzzlesBox.Name = "enforceMaxPuzzlesBox";
+            this.enforceMaxPuzzlesBox.Size = new System.Drawing.Size(234, 17);
+            this.enforceMaxPuzzlesBox.TabIndex = 23;
+            this.enforceMaxPuzzlesBox.Text = "Enforce Max Puzzle Number for Final Check";
+            this.enforceMaxPuzzlesBox.UseVisualStyleBackColor = true;
+            // 
+            // disableRiddleHutBox
+            // 
+            this.disableRiddleHutBox.AutoSize = true;
+            this.disableRiddleHutBox.Location = new System.Drawing.Point(11, 107);
+            this.disableRiddleHutBox.Name = "disableRiddleHutBox";
+            this.disableRiddleHutBox.Size = new System.Drawing.Size(114, 17);
+            this.disableRiddleHutBox.TabIndex = 24;
+            this.disableRiddleHutBox.Text = "Disable Riddle Hut";
+            this.disableRiddleHutBox.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(28, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(303, 36);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "All puzzle number checks (you must have X puzzle to progress) but the final one a" +
+    "re removed";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(28, 127);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(303, 45);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "Riddle hut is still accesible, but no puzzles are sent to it. Puzzles can be lost" +
+    " forever. WARNING: this might render your save file unbeatable.";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.disableRiddleHutBox);
+            this.groupBox1.Controls.Add(this.enforceMaxPuzzlesBox);
+            this.groupBox1.Controls.Add(this.disablePuzzleCheckBox);
+            this.groupBox1.Location = new System.Drawing.Point(12, 49);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(326, 189);
+            this.groupBox1.TabIndex = 27;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Options";
+            // 
             // Sistema
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(350, 125);
+            this.ClientSize = new System.Drawing.Size(350, 300);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.seed_txt);
             this.Controls.Add(this.seedTxt);
             this.Controls.Add(this.btnSaveROM);
@@ -169,6 +241,8 @@ namespace Tinke
             this.Name = "Sistema";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Sistema_FormClosing);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,6 +257,12 @@ namespace Tinke
         private System.Windows.Forms.Button btnSaveROM;
         private System.Windows.Forms.TextBox seedTxt;
         private System.Windows.Forms.Label seed_txt;
+        private System.Windows.Forms.CheckBox disablePuzzleCheckBox;
+        private System.Windows.Forms.CheckBox enforceMaxPuzzlesBox;
+        private System.Windows.Forms.CheckBox disableRiddleHutBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
 
     }
 }

@@ -877,6 +877,9 @@ namespace Tinke
 
             if (rando != null)
             {
+                rando.enforceMaxPuzzles = this.enforceMaxPuzzlesBox.Checked;
+                rando.removePuzzleCounterChecks = this.disablePuzzleCheckBox.Checked;
+                rando.removeRiddleHutChecks = this.disableRiddleHutBox.Checked;
                 rando.seedPuzzles();
                 rando.Write();
             }
@@ -1127,6 +1130,16 @@ namespace Tinke
             }
         }
         #endregion
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
 
         
 

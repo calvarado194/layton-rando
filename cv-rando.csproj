@@ -280,7 +280,9 @@
     <Content Include="Tinke\Resources\picture_save.png" />
     <Content Include="Tinke\Resources\plugin_go.png" />
     <Content Include="Tinke\Resources\zoom.png" />
-    <Content Include="Tinke\Tinke.csproj" />
+    <Content Include="Tinke\Tinke.csproj">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Be.Windows.Forms.HexBox\AssemblyInfo.cs" />
